@@ -15,7 +15,8 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Order" />
+      <Folder Include="Order\Commands\Delete" />
+      <Folder Include="Order\Commands\Update" />
     </ItemGroup>
 
 </Project>
