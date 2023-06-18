@@ -11,11 +11,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Product\Commands\Delete" />
-      <Folder Include="Product\Commands\Update" />
-    </ItemGroup>
-
-    <ItemGroup>
       <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />
     </ItemGroup>
 
