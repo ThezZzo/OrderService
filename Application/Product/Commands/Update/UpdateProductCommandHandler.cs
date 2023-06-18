@@ -20,7 +20,6 @@ public class UpdateProductCommandHandler : IRequestHandler<UpdateProductCommand,
         {
             throw new NotFoundException(nameof(product), request.Id);
         }
-
         product.Result.Name = request.Name;
         product.Result.Price = request.Price;
         await _dbContext.SaveChangesAsync(cancellationToken);
