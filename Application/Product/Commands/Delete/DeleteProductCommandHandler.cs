@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Application.Product.Commands.Delete;
 
-public class DeleteProductCommandHandler
+public class DeleteProductCommandHandler : IRequestHandler<DeleteProductCommand, Unit>
 {
     private readonly ApplicationDbContext _dbContext;
 

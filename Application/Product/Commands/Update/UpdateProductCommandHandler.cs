@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Application.Product.Commands.Update;
 
-public class UpdateProductCommandHandler
+public class UpdateProductCommandHandler : IRequestHandler<UpdateProductCommand, Unit>
 {
     private readonly ApplicationDbContext _dbContext;
 
