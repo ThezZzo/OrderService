@@ -15,7 +15,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Order\Commands\Delete" />
       <Folder Include="Order\Commands\Update" />
     </ItemGroup>
 
