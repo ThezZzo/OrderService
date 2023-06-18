@@ -10,4 +10,13 @@
       <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.7" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Product\Commands\Delete" />
+      <Folder Include="Product\Commands\Update" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />
+    </ItemGroup>
+
 </Project>
