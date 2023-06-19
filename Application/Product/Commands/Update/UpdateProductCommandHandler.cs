@@ -15,7 +15,7 @@ public class UpdateProductCommandHandler : IRequestHandler<UpdateProductCommand,
     }
     public async Task<Unit> Handle(UpdateProductCommand request, CancellationToken cancellationToken)
     {
-        var product = _dbContext.Products.FirstOrDefaultAsync(p => p.Id == request.Id);
+        var product = _dbContext.Products.FirstOrDefaultAsync(p => p.Id == request.Id, cancellationToken);
         if (product == null || product.Id != request.Id)
         {
             throw new NotFoundException(nameof(product), request.Id);
