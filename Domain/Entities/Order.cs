@@ -7,7 +7,7 @@ public class Order
     public string Name { get; set; }
     
     public int ProductId { get; set; }
-    public IEnumerable<Product> Product { get; set; }
+    public Product Product { get; set; }
     
     public int Count { get; set; }
     

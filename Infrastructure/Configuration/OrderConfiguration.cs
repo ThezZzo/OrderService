@@ -12,6 +12,8 @@ public class OrderConfiguration : IEntityTypeConfiguration<Order>
             .HasMaxLength(200)
             .IsRequired();
 
-        builder.OwnsMany<Product>(b=>b.Product);
+        builder.HasOne<Product>(b=>b.Product)
+            .WithMany(p=>p.Orders)
+            .HasForeignKey(o=>o.ProductId);
     }
 }
