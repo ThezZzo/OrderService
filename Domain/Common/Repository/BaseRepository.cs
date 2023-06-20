@@ -12,45 +12,45 @@ public class BaseRepository<TEntity, TDbContext> : IBaseRepository<TEntity>
     private readonly TDbContext _dbContext;
     private readonly DbSet<TEntity> _dbSet;
     
-    public BaseRepository(TDbContext dbContext)
+    protected BaseRepository(TDbContext dbContext)
     {
         _dbContext = dbContext;
         _dbSet = dbContext.Set<TEntity>();
     }
 
-    public async Task<TEntity> AddAsync(TEntity entity, CancellationToken cancellationToken)
+    public async Task<TEntity> AddEntityAsync(TEntity entity, CancellationToken cancellationToken)
     {
         await _dbSet.AddAsync(entity, cancellationToken);
         await _dbContext.SaveChangesAsync(cancellationToken);
         return entity;
     }
 
-    public async Task<bool> RemoveAsync(TEntity entity, int id, CancellationToken cancellationToken)
+    public async Task<bool> RemoveEntityAsync(TEntity entity, int id, CancellationToken cancellationToken)
     {
         _dbSet.Remove(entity);
         await _dbContext.SaveChangesAsync(cancellationToken);
         return true;
     }
 
-    public async Task<Unit> UpdateAsync(TEntity entity, CancellationToken cancellationToken = default)
+    public async Task<Unit> UpdateEntityAsync(TEntity entity, CancellationToken cancellationToken = default)
     {
-        _dbSet.Update(entity);
-        await _dbContext.SaveChangesAsync(cancellationToken);
+        _dbSet.Attach(entity);
+        _dbContext.Entry(entity).State = EntityState.Modified;
         return Unit.Value;
     }
 
-    public async Task<IEnumerable<TEntity>> GetAllAsync(TEntity entity, CancellationToken cancellationToken)
+    public async Task<IEnumerable<TEntity>> GetAllAsync(CancellationToken cancellationToken)
     {
         var list = await _dbSet.ToListAsync(cancellationToken);
         return list;
     }
 
-    public async Task<TEntity> GetEntityByIdAsync(TEntity entity, int id, CancellationToken cancellationToken = default)
+    public async Task<TEntity> GetEntityByIdAsync(int id, CancellationToken cancellationToken = default)
     {
-        var result = await _dbSet.FindAsync(entity);
+        var result = await _dbSet.FindAsync(id);
         if (result == null)
         {
-            throw new NotFoundException(nameof(entity), id);
+            throw new NotFoundException(nameof(_dbSet), id);
         }
         return result;
     }

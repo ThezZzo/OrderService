@@ -1,21 +1,23 @@
 ﻿using Application.Exceptions;
 using Infrastructure.Persistance;
+using Infrastructure.Repositories.Product;
 using MediatR;
 
 namespace Application.Product.Queries.GetProduct;
 
 public class GetProductQueryHandler : IRequestHandler<GetProductQuery, ProductEntity>
 {
-    private readonly ApplicationDbContext _dbContext;
 
-    public GetProductQueryHandler(ApplicationDbContext dbContext)
+    private readonly ProductRepository _repository;
+
+    public GetProductQueryHandler(ApplicationDbContext dbContext, ProductRepository repository)
     {
-        _dbContext = dbContext;
+        _repository = repository;
     }
 
     public async Task<ProductEntity> Handle(GetProductQuery request, CancellationToken cancellationToken)
     {
-        var product = await _dbContext.Products.FindAsync(request.Id, cancellationToken);
+        var product = _repository.GetEntityByIdAsync(request.Id, cancellationToken);
         if (product == null)
         {
             throw new NotFoundException(nameof(ProductEntity), request.Id);
