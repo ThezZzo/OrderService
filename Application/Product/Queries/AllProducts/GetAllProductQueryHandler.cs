@@ -1,22 +1,21 @@
-﻿using Application.Product.Queries.GetProduct;
-using Infrastructure.Persistance;
+﻿
+using Infrastructure.Repositories.Product;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
+
 
 namespace Application.Product.Queries.AllProducts;
 
-public class GetAllProductQueryHandler : IRequestHandler<GetAllProductQuery, ProductList>
+public class GetAllProductQueryHandler : IRequestHandler<GetAllProductQuery, IEnumerable<Domain.Entities.Product>>
 {
-    private readonly ApplicationDbContext _dbContext;
+    private readonly ProductRepository _repository;
 
-    public GetAllProductQueryHandler(ApplicationDbContext dbContext)
+    public GetAllProductQueryHandler(ProductRepository repository)
     {
-        _dbContext = dbContext;
+        _repository = repository;
     }
     
-    public async Task<ProductList> Handle(GetAllProductQuery request, CancellationToken cancellationToken)
+    public async Task<IEnumerable<Domain.Entities.Product>> Handle(GetAllProductQuery request, CancellationToken cancellationToken)
     {
-        var products = await _dbContext.Products.ToListAsync(cancellationToken);
-        return new ProductList { Products = products };
+        return await _repository.GetAllAsync(cancellationToken).ConfigureAwait(false);
     }
 }

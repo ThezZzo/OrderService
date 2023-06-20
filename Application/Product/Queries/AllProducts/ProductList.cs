@@ -1,7 +1,9 @@
 ﻿
+using MediatR;
+
 namespace Application.Product.Queries.AllProducts;
 
-public class ProductList
+public class ProductList : IRequest<IEnumerable<Domain.Entities.Product>>
 {
-    public IList<Domain.Entities.Product> Products { get; set; }
+    
 }

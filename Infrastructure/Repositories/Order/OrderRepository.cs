@@ -3,7 +3,9 @@ using Infrastructure.Persistance;
 
 namespace Infrastructure.Repositories.Order;
 
-public class OrderRepository : BaseRepository<Domain.Entities.Order, ApplicationDbContext>
+public class OrderRepository : 
+    BaseRepository<Domain.Entities.Order, ApplicationDbContext>, 
+    IOrderRepository
 {
     protected OrderRepository(ApplicationDbContext dbContext) : base(dbContext)
     {

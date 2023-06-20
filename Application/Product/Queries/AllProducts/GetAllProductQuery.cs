@@ -2,7 +2,7 @@
 
 namespace Application.Product.Queries.AllProducts;
 
-public class GetAllProductQuery : IRequest<ProductList>
+public class GetAllProductQuery : IRequest<IEnumerable<Domain.Entities.Product>>
 {
-    public int Id { get; set; }
+
 }

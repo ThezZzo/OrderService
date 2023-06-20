@@ -10,7 +10,7 @@ public class GetProductQueryHandler : IRequestHandler<GetProductQuery, ProductEn
 
     private readonly ProductRepository _repository;
 
-    public GetProductQueryHandler(ApplicationDbContext dbContext, ProductRepository repository)
+    public GetProductQueryHandler(ProductRepository repository)
     {
         _repository = repository;
     }

@@ -1,15 +1,17 @@
 ﻿using Infrastructure.Persistance;
+using Infrastructure.Repositories.Product;
 using MediatR;
 
 namespace Application.Product.Commands.Create;
 
 public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand, int>
 {
-    private readonly ApplicationDbContext _dbContext;
 
-    public CreateProductCommandHandler(ApplicationDbContext dbContext)
+    private readonly ProductRepository _repository;
+
+    public CreateProductCommandHandler(ProductRepository repository)
     {
-        _dbContext = dbContext;
+        _repository = repository;
     }
     public async Task<int> Handle(CreateProductCommand request, CancellationToken cancellationToken)
     {
@@ -18,8 +20,7 @@ public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand,
             Name = request.Name,
             Price = request.Price
         };
-        await _dbContext.Products.AddAsync(product, cancellationToken);
-        await _dbContext.SaveChangesAsync(cancellationToken);
+        await _repository.AddEntityAsync(product, cancellationToken);
         return product.Id;
     }
 }

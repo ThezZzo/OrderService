@@ -1,14 +1,18 @@
-﻿using MediatR;
+﻿using Application.Product.Commands.Create;
+using MediatR;
 using Application.Product.Queries.AllProducts;
 namespace WebAPI.Endpoints.Product.Create;
 
-public class Endpoint
+public static class Endpoint
 {
-    private readonly IMediator _mediator;
-    
-    public Endpoint(IMediator mediator)
+
+    public static WebApplication MapPostCreateProduct(this WebApplication app)
     {
-        _mediator = mediator;
+        app.MapPost("api/products", async (CreateProductCommand request, Mediator mediator) =>
+        {
+            var response = await mediator.Send(new GetAllProductQuery { });
+        });
+        return app;
     }
     
     

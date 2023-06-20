@@ -4,9 +4,9 @@ public class Product
 {
     public int Id { get; set; }
     
-    public string Name { get; set; }
+    public string? Name { get; set; }
     
     public decimal Price { get; set; }
-    
-    public IEnumerable<Order> Orders { get; set; }
+
+    public IEnumerable<Order> Orders { get; set; } = null!;
 }

@@ -1,20 +1,17 @@
-﻿using Infrastructure.Persistance;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
+﻿using System.Diagnostics.CodeAnalysis;
+using Infrastructure.Repositories.Order;
+using Infrastructure.Repositories.Product;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Infrastructure;
 
+[ExcludeFromCodeCoverage]
 public static class DependencyInjection
 {
-    public static IServiceCollection AddInfrastructureService(this IServiceCollection services,
-        IConfiguration configuration)
+    public static IServiceCollection ConfigureInfrastructure(this IServiceCollection services)
     {
-        services.AddDbContext<ApplicationDbContext>(options =>
-        {
-            options.UseNpgsql(configuration.GetConnectionString("DefaultConnection"));
-        });
-        
+        services.AddScoped<ProductRepository>();
+        services.AddScoped<OrderRepository>();
         return services;
     }
 }
