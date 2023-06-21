@@ -2,7 +2,7 @@
 
 namespace Application.Order.Commands.Delete;
 
-public class DeleteOrderCommand : IRequest<Unit>
+public class DeleteOrderCommand : IRequest<bool>
 {
-    public int OrderId { get; set; }
+    public int Id { get; set; }
 }

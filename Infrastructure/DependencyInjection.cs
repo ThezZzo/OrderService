@@ -1,5 +1,5 @@
 ﻿using System.Diagnostics.CodeAnalysis;
-using Infrastructure.Repositories.Order;
+using Domain.Common.Repository;
 using Infrastructure.Repositories.Product;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -11,7 +11,7 @@ public static class DependencyInjection
     public static IServiceCollection ConfigureInfrastructure(this IServiceCollection services)
     {
         services.AddScoped<ProductRepository>();
-        services.AddScoped<OrderRepository>();
+
         return services;
     }
 }

@@ -1,29 +1,19 @@
-﻿using Application.Exceptions;
-using Application.Product.Commands.Create;
-using Infrastructure.Persistance;
+﻿using Domain.Common.Repository;
+
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 
 namespace Application.Product.Commands.Delete;
 
-public class DeleteProductCommandHandler : IRequestHandler<DeleteProductCommand, Unit>
+public class DeleteProductCommandHandler : IRequestHandler<DeleteProductCommand, bool>
 {
-    private readonly ApplicationDbContext _dbContext;
+    private readonly IProductRepository _repository;
 
-    public DeleteProductCommandHandler(ApplicationDbContext dbContext)
+    public DeleteProductCommandHandler(IProductRepository repository)
     {
-        _dbContext = dbContext;
+        _repository = repository;
     }
-    public async Task<Unit> Handle(DeleteProductCommand request, CancellationToken cancellationToken)
+    public async Task<bool> Handle(DeleteProductCommand request, CancellationToken cancellationToken)
     {
-        var product = _dbContext.Products.FindAsync(new object[]{request.Id}, cancellationToken);
-        if (product == null || product.Result.Id != request.Id)
-        {
-            throw new NotFoundException(nameof(product), request.Id);
-        }
-
-        _dbContext.Remove(product);
-        await _dbContext.SaveChangesAsync(cancellationToken);
-        return Unit.Value;
+        return await _repository.RemoveEntityAsync(request.Product, request.Id, cancellationToken);
     }
 }

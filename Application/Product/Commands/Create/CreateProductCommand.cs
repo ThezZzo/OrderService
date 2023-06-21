@@ -1,5 +1,4 @@
-﻿using Infrastructure.Persistance;
-using MediatR;
+﻿using MediatR;
 
 namespace Application.Product.Commands.Create;
 

@@ -2,7 +2,7 @@
 
 namespace Application.Order.Queries.GetAllOrders;
 
-public class GetAllOrdersQuery : IRequest<OrderList>
+public class GetAllOrdersQuery : IRequest<IEnumerable<Domain.Entities.Order>>
 {
-    public int Id { get; set; }
+
 }

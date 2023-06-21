@@ -2,7 +2,8 @@
 
 namespace Application.Product.Commands.Delete;
 
-public class DeleteProductCommand : IRequest<Unit>
+public class DeleteProductCommand : IRequest<bool>
 {
     public int Id { get; }
+    public Domain.Entities.Product Product { get; set; }
 }

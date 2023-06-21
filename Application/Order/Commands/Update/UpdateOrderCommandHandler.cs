@@ -1,6 +1,6 @@
 ﻿using Application.Exceptions;
-using Application.Product.Commands.Update;
-using Infrastructure.Persistance;
+
+using Infrastructure.Repositories.Order;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
@@ -8,22 +8,21 @@ namespace Application.Order.Commands.Update;
 
 public class UpdateOrderCommandHandler : IRequestHandler<UpdateOrderCommand, Unit>
 {
-    private readonly ApplicationDbContext _dbContext;
+    private readonly OrderRepository _repository;
 
-    public UpdateOrderCommandHandler(ApplicationDbContext dbContext)
+    public UpdateOrderCommandHandler(OrderRepository repository)
     {
-        _dbContext = dbContext;
+        _repository = repository;
     }
     public async Task<Unit> Handle(UpdateOrderCommand request, CancellationToken cancellationToken)
     {
-        var order = _dbContext.Orders.FirstOrDefaultAsync(p => p.Id == request.Id);
+        var order = _repository.GetEntityByIdAsync(request.Id, cancellationToken);
         if (order == null || order.Id != request.Id)
         {
             throw new NotFoundException(nameof(order), request.Id);
         }
         order.Result.Count = request.Count;
         order.Result.ProductId = request.ProductId;
-        await _dbContext.SaveChangesAsync(cancellationToken);
-        return Unit.Value;
+        return await _repository.UpdateEntityAsync(order.Result, cancellationToken);
     }
 }

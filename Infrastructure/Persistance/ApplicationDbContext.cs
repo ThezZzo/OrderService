@@ -21,7 +21,6 @@ public class ApplicationDbContext : DbContext
     {
         _options = options;
         _configuration = configuration;
-
     }
     public DbSet<Order> Orders { get; set; }
     public DbSet<Product> Products { get; set; }

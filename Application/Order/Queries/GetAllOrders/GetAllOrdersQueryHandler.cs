@@ -1,21 +1,22 @@
-﻿using Infrastructure.Persistance;
+﻿
+using Infrastructure.Repositories.Order;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
+
 
 namespace Application.Order.Queries.GetAllOrders;
 
-public class GetAllOrdersQueryHandler : IRequestHandler<GetAllOrdersQuery, OrderList>
+public class GetAllOrdersQueryHandler : IRequestHandler<GetAllOrdersQuery, IEnumerable<Domain.Entities.Order>>
 {
-    private readonly ApplicationDbContext _dbContext;
+    private readonly OrderRepository _repository;
 
-    public GetAllOrdersQueryHandler(ApplicationDbContext dbContext)
+    public GetAllOrdersQueryHandler(OrderRepository repository)
     {
-        _dbContext = dbContext;
+        _repository = repository;
     }
     
-    public async Task<OrderList> Handle(GetAllOrdersQuery request, CancellationToken cancellationToken)
+    public async Task<IEnumerable<Domain.Entities.Order>> Handle
+        (GetAllOrdersQuery request, CancellationToken cancellationToken)
     {
-        var orders = await _dbContext.Orders.ToListAsync(cancellationToken);
-        return new OrderList { Orders = orders };
+        return await _repository.GetAllAsync(cancellationToken);
     }
 }

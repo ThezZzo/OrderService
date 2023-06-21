@@ -27,7 +27,11 @@ public class BaseRepository<TEntity, TDbContext> : IBaseRepository<TEntity>
 
     public async Task<bool> RemoveEntityAsync(TEntity entity, int id, CancellationToken cancellationToken)
     {
-        _dbSet.Remove(entity);
+        var result = await _dbSet.FindAsync(id);
+        if (result == null)
+        {
+            throw new NotFoundException(nameof(entity), id);
+        }
         await _dbContext.SaveChangesAsync(cancellationToken);
         return true;
     }

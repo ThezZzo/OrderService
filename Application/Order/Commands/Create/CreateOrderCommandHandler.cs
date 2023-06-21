@@ -1,23 +1,25 @@
-﻿using Application.Product.Commands.Create;
-using Infrastructure.Persistance;
+﻿using Infrastructure.Repositories.Order;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
+
 
 namespace Application.Order.Commands.Create;
 
-public class CreateOrderCommandHandler : IRequestHandler<CreateOrderCommand, Unit>
+public class CreateOrderCommandHandler : IRequestHandler<CreateOrderCommand, Domain.Entities.Order>
 {
-    private readonly ApplicationDbContext _dbContext;
+    private readonly OrderRepository _repository;
+
+    public CreateOrderCommandHandler(OrderRepository repository)
+    {
+        _repository = repository;
+    }
     
-    public async Task<Unit> Handle(CreateOrderCommand request, CancellationToken cancellationToken)
+    public async Task<Domain.Entities.Order> Handle(CreateOrderCommand request, CancellationToken cancellationToken)
     {
         var order = new Domain.Entities.Order
         {
             Count = request.Count,
             ProductId = request.ProductId
         };
-        await _dbContext.Orders.AddAsync(order, cancellationToken);
-        await _dbContext.SaveChangesAsync(cancellationToken);
-        return Unit.Value;
+        return await _repository.AddEntityAsync(order, cancellationToken);
     }
 }

@@ -1,18 +1,37 @@
+using System.Net.NetworkInformation;
+using System.Reflection;
 using Application;
+using Application.Product.Queries.AllProducts;
+using Domain.Common.Repository;
+using Domain.Entities;
 using Infrastructure;
 using Infrastructure.Persistance;
+using Infrastructure.Repositories.Order;
+using Infrastructure.Repositories.Product;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
-using WebAPI;
 using WebAPI.Endpoints.Product.GetAll;
 
 
 var builder = WebApplication
     .CreateBuilder(args);
-builder.Services
-    .ConfigureInfrastructure()
-    .ConfigureApplication();
+
+
 builder.Services.AddSwaggerGen();
 builder.Services.AddEndpointsApiExplorer();
+
+
+
+builder.Services.AddMediatR(cfg =>
+    cfg.RegisterServicesFromAssembly(typeof(Ping).Assembly));
+builder.Services.AddScoped(typeof(IRequestHandler<GetAllProductQuery, IEnumerable<Product>>), typeof(GetAllProductQueryHandler));
+builder.Services.AddScoped(typeof(IProductRepository), typeof(ProductRepository));
+
+
+// foreach (var service in builder.Services)
+// {
+//     Console.WriteLine($"{service.ServiceType.FullName},{service.ImplementationType?.FullName}");
+// }
 
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>

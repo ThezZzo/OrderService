@@ -1,5 +1,4 @@
-﻿using Infrastructure.Persistance;
-using Infrastructure.Repositories.Product;
+﻿using Domain.Common.Repository;
 using MediatR;
 
 namespace Application.Product.Commands.Create;
@@ -7,9 +6,9 @@ namespace Application.Product.Commands.Create;
 public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand, int>
 {
 
-    private readonly ProductRepository _repository;
+    private readonly IProductRepository _repository;
 
-    public CreateProductCommandHandler(ProductRepository repository)
+    public CreateProductCommandHandler(IProductRepository repository)
     {
         _repository = repository;
     }
