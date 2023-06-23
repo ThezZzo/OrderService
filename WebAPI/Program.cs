@@ -1,7 +1,10 @@
 using Infrastructure.Persistance;
 using Microsoft.EntityFrameworkCore;
 using WebAPI.Configuration;
+using WebAPI.Endpoints.Product.Create;
+using WebAPI.Endpoints.Product.Delete;
 using WebAPI.Endpoints.Product.GetAll;
+using WebAPI.Endpoints.Product.GetById;
 
 
 var builder = WebApplication
@@ -34,6 +37,9 @@ app.UseSwagger();
 
 
 app.MapGetAllProduct();
+app.MapGetProductById();
+app.MapCreateProduct();
+app.MapDeleteProduct();
 app.UseRouting();
 app.UseSwaggerUI();
 

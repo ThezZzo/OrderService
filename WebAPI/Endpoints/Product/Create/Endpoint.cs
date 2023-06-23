@@ -1,14 +1,15 @@
 ﻿using Application.Product.Commands.Create;
 using MediatR;
-using Application.Product.Queries.AllProducts;
+using Microsoft.AspNetCore.Mvc;
+
 namespace WebAPI.Endpoints.Product.Create;
 
 public static class Endpoint
 {
     public static WebApplication MapCreateProduct(this WebApplication app)
     {
-        app.MapGet("api/products",
-            async (Domain.Entities.Product query, ISender mediator) =>
+        app.MapPost("/api/products",
+            async ([FromBody]Domain.Entities.Product query, ISender mediator) =>
             {
                 await mediator.Send(new CreateProductCommand
                 {
