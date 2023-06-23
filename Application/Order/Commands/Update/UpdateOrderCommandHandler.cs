@@ -1,5 +1,5 @@
 ﻿using Application.Exceptions;
-
+using Domain.Common.Repository;
 using Infrastructure.Repositories.Order;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -8,9 +8,9 @@ namespace Application.Order.Commands.Update;
 
 public class UpdateOrderCommandHandler : IRequestHandler<UpdateOrderCommand, Unit>
 {
-    private readonly OrderRepository _repository;
+    private readonly IOrderRepository _repository;
 
-    public UpdateOrderCommandHandler(OrderRepository repository)
+    public UpdateOrderCommandHandler(IOrderRepository repository)
     {
         _repository = repository;
     }

@@ -1,6 +1,9 @@
 using Infrastructure.Persistance;
 using Microsoft.EntityFrameworkCore;
 using WebAPI.Configuration;
+using WebAPI.Endpoints.Order.Create;
+using WebAPI.Endpoints.Order.Delete;
+using WebAPI.Endpoints.Order.GetAll;
 using WebAPI.Endpoints.Product.Create;
 using WebAPI.Endpoints.Product.Delete;
 using WebAPI.Endpoints.Product.GetAll;
@@ -40,6 +43,11 @@ app.MapGetAllProduct();
 app.MapGetProductById();
 app.MapCreateProduct();
 app.MapDeleteProduct();
+
+app.MapGetAllOrders();
+app.MapCreateOrder();
+app.MapDeleteOrder();
+
 app.UseRouting();
 app.UseSwaggerUI();
 

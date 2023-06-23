@@ -1,4 +1,5 @@
-﻿using Infrastructure.Repositories.Order;
+﻿using Domain.Common.Repository;
+using Infrastructure.Repositories.Order;
 using MediatR;
 
 
@@ -6,9 +7,9 @@ namespace Application.Order.Commands.Create;
 
 public class CreateOrderCommandHandler : IRequestHandler<CreateOrderCommand, Domain.Entities.Order>
 {
-    private readonly OrderRepository _repository;
+    private readonly IOrderRepository _repository;
 
-    public CreateOrderCommandHandler(OrderRepository repository)
+    public CreateOrderCommandHandler(IOrderRepository repository)
     {
         _repository = repository;
     }

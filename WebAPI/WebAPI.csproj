@@ -24,10 +24,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Endpoints\Order\Create" />
-      <Folder Include="Endpoints\Order\Delete" />
-      <Folder Include="Endpoints\Order\GetAll" />
-      <Folder Include="Endpoints\Order\GetById" />
       <Folder Include="Endpoints\Order\Update" />
       <Folder Include="Endpoints\Product\Update" />
     </ItemGroup>

@@ -1,5 +1,6 @@
 ﻿
-using Infrastructure.Repositories.Order;
+using Domain.Common.Repository;
+
 using MediatR;
 
 
@@ -7,9 +8,9 @@ namespace Application.Order.Queries.GetAllOrders;
 
 public class GetAllOrdersQueryHandler : IRequestHandler<GetAllOrdersQuery, IEnumerable<Domain.Entities.Order>>
 {
-    private readonly OrderRepository _repository;
+    private readonly IOrderRepository _repository;
 
-    public GetAllOrdersQueryHandler(OrderRepository repository)
+    public GetAllOrdersQueryHandler(IOrderRepository repository)
     {
         _repository = repository;
     }
