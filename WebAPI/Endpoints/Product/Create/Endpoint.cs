@@ -5,15 +5,17 @@ namespace WebAPI.Endpoints.Product.Create;
 
 public static class Endpoint
 {
-
-    public static WebApplication MapPostCreateProduct(this WebApplication app)
+    public static WebApplication MapCreateProduct(this WebApplication app)
     {
-        app.MapPost("api/products", async (CreateProductCommand request, Mediator mediator) =>
-        {
-            var response = await mediator.Send(new GetAllProductQuery { });
-        });
+        app.MapGet("api/products",
+            async (Domain.Entities.Product query, ISender mediator) =>
+            {
+                await mediator.Send(new CreateProductCommand
+                {
+                    Price = query.Price, 
+                    Name = query.Name
+                });
+            });
         return app;
     }
-    
-    
 }

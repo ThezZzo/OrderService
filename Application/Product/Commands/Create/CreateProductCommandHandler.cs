@@ -3,7 +3,7 @@ using MediatR;
 
 namespace Application.Product.Commands.Create;
 
-public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand, int>
+public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand, Domain.Entities.Product>
 {
 
     private readonly IProductRepository _repository;
@@ -12,7 +12,7 @@ public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand,
     {
         _repository = repository;
     }
-    public async Task<int> Handle(CreateProductCommand request, CancellationToken cancellationToken)
+    public async Task<Domain.Entities.Product> Handle(CreateProductCommand request, CancellationToken cancellationToken)
     {
         var product = new Domain.Entities.Product
         {
@@ -20,6 +20,6 @@ public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand,
             Price = request.Price
         };
         await _repository.AddEntityAsync(product, cancellationToken);
-        return product.Id;
+        return product;
     }
-}
+}   
