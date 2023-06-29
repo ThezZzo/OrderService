@@ -1,8 +1,6 @@
-﻿using Application.Exceptions;
-using Domain.Common.Repository;
-using Infrastructure.Repositories.Order;
+﻿using Domain.Common.Repository;
+using Domain.Exceptions;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 
 namespace Application.Order.Commands.Update;
 

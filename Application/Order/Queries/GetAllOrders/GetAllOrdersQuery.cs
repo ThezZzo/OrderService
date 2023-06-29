@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using Domain.Common.DTOs;
+using MediatR;
 
 namespace Application.Order.Queries.GetAllOrders;
 

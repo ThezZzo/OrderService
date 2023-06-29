@@ -1,6 +1,6 @@
 ﻿using Domain.Common.Repository;
+using Domain.Exceptions;
 using MediatR;
-
 
 namespace Application.Product.Queries.AllProducts;
 
@@ -15,6 +15,11 @@ public class GetAllProductQueryHandler : IRequestHandler<GetAllProductQuery, IEn
     
     public async Task<IEnumerable<Domain.Entities.Product>> Handle(GetAllProductQuery request, CancellationToken cancellationToken)
     {
-        return await _repository.GetAllAsync(cancellationToken);
+        var result = await _repository.GetAllAsync(cancellationToken);
+        if (result == null)
+        {
+            throw new NotFoundListException(nameof(result));
+        }
+        return result;
     }
 }

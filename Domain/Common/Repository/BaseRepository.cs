@@ -1,5 +1,4 @@
-﻿
-using Application.Exceptions;
+﻿using Domain.Exceptions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
@@ -46,6 +45,10 @@ public class BaseRepository<TEntity, TDbContext> : IBaseRepository<TEntity>
     public async Task<IEnumerable<TEntity>> GetAllAsync(CancellationToken cancellationToken)
     {
         var list = await _dbSet.ToListAsync(cancellationToken);
+        if (!list.Any())
+        {
+            throw new NotFoundListException(nameof(TEntity));
+        }
         return list;
     }
 

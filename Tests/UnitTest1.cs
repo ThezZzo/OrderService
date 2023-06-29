@@ -1,15 +1,27 @@
+using System.Net;
+using Microsoft.VisualStudio.TestPlatform.TestHost;
+
 namespace Tests;
 
+
+[TestFixture]
 public class Tests
 {
-    [SetUp]
-    public void Setup()
-    {
-    }
+    private  WebApplicationFactory<Program> _factory;
 
-    [Test]
-    public void Test1()
+   
+    [SetUp]
+    public void Setup( )
     {
-        Assert.Pass();
+        _factory = new WebApplicationFactory<Program>();
     }
+    [Test]
+    public async Task GetAllProducts()
+    {
+        var client = _factory.CreateClient();
+        var response = await client.GetAsync("/api/products");
+        var data = await response.Content.ReadAsStringAsync();
+        Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
+    }
+    
 }

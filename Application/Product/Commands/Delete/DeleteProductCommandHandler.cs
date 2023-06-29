@@ -1,5 +1,4 @@
 ﻿using Domain.Common.Repository;
-
 using MediatR;
 
 namespace Application.Product.Commands.Delete;

@@ -1,8 +1,7 @@
 ﻿
+using Domain.Common.DTOs;
 using Domain.Common.Repository;
-
 using MediatR;
-
 
 namespace Application.Order.Queries.GetAllOrders;
 
@@ -18,6 +17,7 @@ public class GetAllOrdersQueryHandler : IRequestHandler<GetAllOrdersQuery, IEnum
     public async Task<IEnumerable<Domain.Entities.Order>> Handle
         (GetAllOrdersQuery request, CancellationToken cancellationToken)
     {
-        return await _repository.GetAllAsync(cancellationToken);
+        var orders =  await _repository.GetAllOrders(cancellationToken);
+        return orders;
     }
 }
