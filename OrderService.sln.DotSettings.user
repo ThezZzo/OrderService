@@ -3,6 +3,7 @@
   &lt;Assembly Path="C:\Users\User\.nuget\packages\microsoft.entityframeworkcore\7.0.7\lib\net6.0\Microsoft.EntityFrameworkCore.dll" /&gt;&#xD;
   &lt;Assembly Path="C:\Users\User\.nuget\packages\microsoft.aspnetcore.mvc.testing\7.0.8\lib\net7.0\Microsoft.AspNetCore.Mvc.Testing.dll" /&gt;&#xD;
 &lt;/AssemblyExplorer&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=7617a419_002Dbe17_002D4ce7_002D9ee4_002D19477fcb817b/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="Session" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
-  &lt;Project Location="A:\Programming\OrderService\Tests" Presentation="&amp;lt;tests&amp;gt;\&amp;lt;Tests&amp;gt;" /&gt;&#xD;
-&lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=54e8ab8b_002D8b13_002D4a5c_002D9ff1_002D32255377ce57/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="All tests from &amp;lt;xUnit.Tests&amp;gt;\&amp;lt;Tests&amp;gt;" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;Project Location="A:\Programming\OrderService\Tests" Presentation="&amp;lt;xUnit.Tests&amp;gt;\&amp;lt;Tests&amp;gt;" /&gt;&#xD;
+&lt;/SessionState&gt;</s:String>
+	</wpf:ResourceDictionary>

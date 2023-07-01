@@ -45,7 +45,6 @@ public static class DependencyInjection
     }
     public static WebApplication ConfigureMapApi(this WebApplication app)
     {
-
         return app;
     }
 }
