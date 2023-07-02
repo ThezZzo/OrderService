@@ -12,4 +12,12 @@ public class Product
 
     [NotMapped]
     public IEnumerable<Order> Orders { get; set; } = null!;
+
+    private Product(string _Name, decimal _Price)
+    {
+        Name = _Name;
+        Price = _Price;
+    }
+    
+    public Product(){}
 }

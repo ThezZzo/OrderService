@@ -29,7 +29,7 @@ public class GetAllProducts
         var target = handler.Handle(new GetAllProductQuery(), CancellationToken.None);
 
         var response = await _client.GetAsync("api/products");
-        Assert.Equal(response.Content.GetType(), _products.GetType());
+        Assert.Equal(target.Result.GetType(), _products.GetType());
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
     }
 
