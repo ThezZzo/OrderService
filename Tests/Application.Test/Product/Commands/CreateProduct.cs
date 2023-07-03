@@ -1,39 +1,43 @@
-using System.Net;
+﻿using System.Net;
 using System.Net.Http.Json;
-using Application.Product.Queries.AllProducts;
+using Application.Product.Commands.Create;
 using Domain.Common.Repository;
 using Domain.Test.Domain.Product.Test;
 using Moq;
 
-namespace Domain.Test.Domain.Product;
+namespace Domain.Test.Application.Test.Product.Commands;
 
-public class UnitTests
+public class CreateProduct
 {
     private readonly HttpClient _client;
     private readonly WebApplicationFactory<Program> _factory;
 
-    public UnitTests()
+    public CreateProduct()
     {
         _factory = new WebApplicationFactory<Program>();
         _client = _factory.CreateClient();
     }
     
-
     [Fact]
-    public async void Post_Product_With_Correct_Data()
+    public async void PostProduct_WithIncorrectData_ShouldBeOk()
     {
         var fakeProduct = new Entities.Product
         {
             Name = "Продукт",
             Price = 1000
         };
-        var client = _factory.CreateClient();
-        var response = await client.PostAsJsonAsync("/api/products", fakeProduct);
+        var mock = new Mock<IProductRepository>();
+        mock.Setup(r => r.AddEntityAsync(fakeProduct, It.IsAny<CancellationToken>()).Result);
+        var handler = new CreateProductCommandHandler(mock.Object);
+        
+        var target = handler.Handle(new CreateProductCommand(), CancellationToken.None).Result;
+        var response = await _client.PostAsJsonAsync("/api/products", fakeProduct);
+        Assert.Equal(fakeProduct.GetType(), target.GetType());
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
     }
-
+    
     [Fact]
-    public async void Post_Product_With_Incorrect_Data()
+    public async void PostProduct_WithIncorrectData_ShouldBeBadRequest()
     {
         var mock = new Mock<IProductRepository>();
         var fakeProduct = new FakeProduct

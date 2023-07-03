@@ -1,12 +1,9 @@
-﻿using System.Collections;
-using System.Net;
-using System.Net.Http.Json;
+﻿using System.Net;
 using Application.Product.Queries.AllProducts;
 using Domain.Common.Repository;
 using Moq;
 
-
-namespace Domain.Test.Domain.Product.Tests;
+namespace Domain.Test.Application.Test.Product.Queries;
 
 public class GetAllProducts
 {
@@ -23,7 +20,7 @@ public class GetAllProducts
     public async void Get_All_Products()
     {
         var mock = new Mock<IProductRepository>();
-        mock.Setup(r => r.GetAllAsync(It.IsAny<CancellationToken>()).Result);
+        mock.Setup(r => r.GetAllAsync(It.IsAny<CancellationToken>()).Result).Returns(_products);
         var handler = new GetAllProductQueryHandler(mock.Object);
 
         var target = handler.Handle(new GetAllProductQuery(), CancellationToken.None);
