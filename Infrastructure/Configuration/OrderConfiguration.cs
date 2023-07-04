@@ -8,13 +8,10 @@ public class OrderConfiguration : IEntityTypeConfiguration<Order>
 {
     public void Configure(EntityTypeBuilder<Order> builder)
     {
-        builder.Property(t => t.Name)
-            .HasMaxLength(200)
-            .IsRequired();
 
-        builder.HasOne(p => p.Product)
-            .WithMany(o => o.Orders)
-            .HasForeignKey(o => o.ProductId)
+
+        builder.HasOne(p => p.OrderPosition)
+            .WithMany(o => o.)
             .IsRequired();
     }
 }

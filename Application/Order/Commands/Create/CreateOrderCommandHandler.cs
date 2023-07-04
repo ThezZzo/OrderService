@@ -15,13 +15,7 @@ public class CreateOrderCommandHandler : IRequestHandler<CreateOrderCommand, Dom
     
     public async Task<Domain.Entities.Order> Handle(CreateOrderCommand request, CancellationToken cancellationToken)
     {
-        var order = new Domain.Entities.Order
-        {
-            Name = "Заказ",
-            Count = request.Count,
-            ProductId = request.ProductId,
-            Product = await _productRepository.GetEntityByIdAsync(request.ProductId,cancellationToken)
-        };
+        var 
         return await _orderRepository.AddEntityAsync(order, cancellationToken);
     }
 }

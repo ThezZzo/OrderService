@@ -4,6 +4,9 @@
   &lt;Assembly Path="C:\Users\User\.nuget\packages\microsoft.aspnetcore.mvc.testing\7.0.8\lib\net7.0\Microsoft.AspNetCore.Mvc.Testing.dll" /&gt;&#xD;
 &lt;/AssemblyExplorer&gt;</s:String>
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=54e8ab8b_002D8b13_002D4a5c_002D9ff1_002D32255377ce57/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="All tests from &amp;lt;xUnit.Tests&amp;gt;\&amp;lt;Tests&amp;gt;" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
-  &lt;Project Location="A:\Programming\OrderService\Tests" Presentation="&amp;lt;xUnit.Tests&amp;gt;\&amp;lt;Tests&amp;gt;" /&gt;&#xD;
+  &lt;Or&gt;&#xD;
+    &lt;Project Location="A:\Programming\OrderService\Tests" Presentation="&amp;lt;xUnit.Tests&amp;gt;\&amp;lt;Tests&amp;gt;" /&gt;&#xD;
+    &lt;ProjectFile&gt;1EB9F910-00A5-4D80-B60D-841DC7FE7281/f:UnitTest1.cs&lt;/ProjectFile&gt;&#xD;
+  &lt;/Or&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
 	</wpf:ResourceDictionary>

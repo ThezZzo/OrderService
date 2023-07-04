@@ -1,16 +1,23 @@
-﻿namespace Domain.Entities;
+﻿using System.ComponentModel;
+using Domain.ValueObjects;
 
-public class Order
+namespace Domain.Entities;
+
+[DisplayName]
+public class Order 
 {
-    public int Id { get; set; }
+    public int Id { get; protected set; }
     
-    public string? Name { get; set; }
+    public IList<OrderPosition> OrderPositions { get; init; } 
     
-    public int ProductId { get; set; }
-    public Product? Product { get; set; } 
-    
-    public int Count { get; set; }
-    
-    
-    
+    public SumPrice SumPrice { get; init; }
+
+    private static Order Create(IList<OrderPosition> orderPositions, SumPrice sumPrice)
+    {
+        
+        return new Order { OrderPositions = orderPositions, SumPrice = sumPrice };
+    }
 }
+
+
+
