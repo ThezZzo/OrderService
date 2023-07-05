@@ -1,13 +1,13 @@
 using Infrastructure.Persistance;
 using Microsoft.EntityFrameworkCore;
 using WebAPI.Configuration;
-using WebAPI.Endpoints.Order.Create;
-using WebAPI.Endpoints.Order.Delete;
-using WebAPI.Endpoints.Order.GetAll;
-using WebAPI.Endpoints.Product.Create;
-using WebAPI.Endpoints.Product.Delete;
-using WebAPI.Endpoints.Product.GetAll;
-using WebAPI.Endpoints.Product.GetById;
+using WebAPI.Endpoints.Order.CancelOrder.V1;
+using WebAPI.Endpoints.Order.CheckoutOrder.V1;
+using WebAPI.Endpoints.Order.ReturnAllOrders.V1;
+using WebAPI.Endpoints.Product.AddProduct.V1;
+using WebAPI.Endpoints.Product.DeleteProduct.V1;
+using WebAPI.Endpoints.Product.GetAllProducts.V1;
+using WebAPI.Endpoints.Product.GetProductById.V1;
 
 
 var builder = WebApplication

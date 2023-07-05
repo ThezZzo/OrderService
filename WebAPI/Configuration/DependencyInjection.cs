@@ -14,10 +14,6 @@ using Domain.Entities;
 using Infrastructure.Repositories.Order;
 using Infrastructure.Repositories.Product;
 using MediatR;
-using WebAPI.Endpoints.Product.Create;
-using WebAPI.Endpoints.Product.Delete;
-using WebAPI.Endpoints.Product.GetAll;
-using WebAPI.Endpoints.Product.GetById;
 
 namespace WebAPI.Configuration;
 
@@ -37,7 +33,7 @@ public static class DependencyInjection
         
         services.AddScoped(typeof(IRequestHandler<GetAllOrdersQuery, IEnumerable<Order>>), typeof(GetAllOrdersQueryHandler));
         services.AddScoped(typeof(IRequestHandler<CreateOrderCommand, Order>), typeof(CreateOrderCommandHandler));
-        services.AddScoped(typeof(IRequestHandler<UpdateOrderCommand, Unit>), typeof(UpdateOrderCommandHandler));
+        // services.AddScoped(typeof(IRequestHandler<UpdateOrderCommand, Unit>), typeof(UpdateOrderCommandHandler));
         services.AddScoped(typeof(IRequestHandler<DeleteOrderCommand, bool>), typeof(DeleteOrderCommandHandler));
         services.AddScoped(typeof(IOrderRepository), typeof(OrderRepository));
         

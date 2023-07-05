@@ -2,7 +2,7 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-namespace WebAPI.Endpoints.Product.Create;
+namespace WebAPI.Endpoints.Product.AddProduct.V1;
 
 public static class Endpoint
 {

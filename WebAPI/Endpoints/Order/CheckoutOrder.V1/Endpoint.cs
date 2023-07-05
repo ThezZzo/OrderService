@@ -1,9 +1,8 @@
 ﻿using Application.Order.Commands.Create;
-using Application.Product.Commands.Create;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-namespace WebAPI.Endpoints.Order.Create;
+namespace WebAPI.Endpoints.Order.CheckoutOrder.V1;
 
 public static class Endpoint
 {
@@ -14,8 +13,7 @@ public static class Endpoint
             {
                 await mediator.Send(new CreateOrderCommand
                 {
-                    Count = query.Count,
-                    ProductId = query.ProductId
+                    
                 });
             });
         return app;

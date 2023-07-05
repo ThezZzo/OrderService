@@ -9,10 +9,7 @@ public class Product
     public string? Name { get; set; }
     
     public Price Price { get; set; }
-
-    [NotMapped]
-    public IEnumerable<Order> Orders { get; set; } = null!;
-
+    
     public static Product Create(Price price, string name)
     {
         var str = name.Trim();

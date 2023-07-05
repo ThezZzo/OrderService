@@ -1,8 +1,7 @@
 ﻿using Application.Order.Queries.GetAllOrders;
-using Application.Product.Queries.AllProducts;
 using MediatR;
 
-namespace WebAPI.Endpoints.Order.GetAll;
+namespace WebAPI.Endpoints.Order.ReturnAllOrders.V1;
 
 public static class Endpoint
 {

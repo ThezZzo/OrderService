@@ -1,8 +1,7 @@
-﻿using Application.Product.Commands.Create;
-using Application.Product.Commands.Delete;
+﻿using Application.Product.Commands.Delete;
 using MediatR;
 
-namespace WebAPI.Endpoints.Product.Delete;
+namespace WebAPI.Endpoints.Product.DeleteProduct.V1;
 
 public static class Endpoint
 {

@@ -1,8 +1,7 @@
 ﻿using Application.Order.Commands.Delete;
-using Application.Product.Commands.Delete;
 using MediatR;
 
-namespace WebAPI.Endpoints.Order.Delete;
+namespace WebAPI.Endpoints.Order.CancelOrder.V1;
 
 public static class Endpoint
 {

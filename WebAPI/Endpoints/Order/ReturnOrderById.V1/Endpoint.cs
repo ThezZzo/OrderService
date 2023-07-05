@@ -1,7 +1,4 @@
-﻿using Application.Product.Queries.GetProduct;
-using MediatR;
-
-namespace WebAPI.Endpoints.Order.GetById;
+﻿namespace WebAPI.Endpoints.Order.ReturnOrderById.V1;
 
 public static class Endpoint
 {

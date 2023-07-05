@@ -10,8 +10,6 @@ public class OrderConfiguration : IEntityTypeConfiguration<Order>
     {
 
 
-        builder.HasOne(p => p.OrderPosition)
-            .WithMany(o => o.)
-            .IsRequired();
+        builder.OwnsOne(p => p.OrderItems);
     }
 }

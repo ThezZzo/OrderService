@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel;
-using Domain.ValueObjects;
 
 namespace Domain.Entities;
 
@@ -8,14 +7,44 @@ public class Order
 {
     public int Id { get; protected set; }
     
-    public IList<OrderPosition> OrderPositions { get; init; } 
+    public IList<OrderItem> OrderItems { get; init; } 
     
     public SumPrice SumPrice { get; init; }
 
-    private static Order Create(IList<OrderPosition> orderPositions, SumPrice sumPrice)
+    public static Order Create(IList<OrderItem> orderItems, SumPrice sumPrice)
     {
+        if (!orderItems.Any())
+        {
+            throw new Exception();
+        }
+        return new Order { OrderItems = orderItems, SumPrice = sumPrice };
+    }
+
+    public void AddOrderItem(Product product, Quantity quantity)
+    {
+        if (product.Equals(null) || quantity.Equals(null))
+        {
+            throw new Exception();
+        }
+        var orderItem = OrderItem.Create(product, quantity);
+        OrderItems.Add(orderItem);
+    }
+
+    public static long CalculateFinalPrice(IList<OrderItem> orderItems)
+    {
+        if (!orderItems.Any())
+        {
+            throw new Exception();
+        }
+
+        long price = 0;
         
-        return new Order { OrderPositions = orderPositions, SumPrice = sumPrice };
+        foreach (var item in orderItems)
+        {
+            price += item.Quantity.Value * item.Product.Price.Value;
+        }
+        
+        return price;
     }
 }
 
