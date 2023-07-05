@@ -1,9 +1,4 @@
 ﻿
-using Domain.Common.Repository;
-using Infrastructure.Repositories.Order;
-using MediatR;
-
-
 namespace Application.Order.Commands.Delete;
 
 public class DeleteOrderCommandHandler : IRequestHandler<DeleteOrderCommand, bool>

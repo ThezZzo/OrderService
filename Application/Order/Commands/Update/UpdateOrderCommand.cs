@@ -1,5 +1,4 @@
-﻿using MediatR;
-
+﻿
 namespace Application.Order.Commands.Update;
 
 public class UpdateOrderCommand : IRequest<Unit>

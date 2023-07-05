@@ -1,7 +1,4 @@
-﻿using Domain.Common.Repository;
-using MediatR;
-
-namespace Application.Product.Queries.AllProducts;
+﻿namespace Application.Product.Queries.AllProducts;
 
 public class GetAllProductQueryHandler : IRequestHandler<GetAllProductQuery, IEnumerable<Domain.Entities.Product>>
 {

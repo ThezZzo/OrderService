@@ -1,7 +1,4 @@
-﻿using Domain.Entities;
-using MediatR;
-
-namespace Application.Product.Commands.Update;
+﻿namespace Application.Product.Commands.Update;
 
 public class UpdateProductCommand : IRequest, IRequest<Unit>
 {

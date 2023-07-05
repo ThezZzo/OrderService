@@ -1,5 +1,4 @@
-﻿
-namespace Application.Product.Queries.GetProduct;
+﻿namespace Application.Product.Queries.GetProduct;
 
 public class ProductEntity
 {

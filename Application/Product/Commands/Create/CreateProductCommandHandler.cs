@@ -1,7 +1,4 @@
-﻿using Domain.Common.Repository;
-using MediatR;
-
-namespace Application.Product.Commands.Create;
+﻿namespace Application.Product.Commands.Create;
 
 public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand, Domain.Entities.Product>
 {

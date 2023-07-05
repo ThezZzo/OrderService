@@ -1,9 +1,4 @@
-﻿
-using Domain.Common.DTOs;
-using Domain.Common.Repository;
-using MediatR;
-
-namespace Application.Order.Queries.GetAllOrders;
+﻿namespace Application.Order.Queries.GetAllOrders;
 
 public class GetAllOrdersQueryHandler : IRequestHandler<GetAllOrdersQuery, IEnumerable<Domain.Entities.Order>>
 {

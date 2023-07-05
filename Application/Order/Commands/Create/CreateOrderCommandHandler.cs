@@ -1,9 +1,4 @@
-﻿using Domain.Common.Repository;
-using Domain.Entities;
-using Domain.ValueObjects;
-using MediatR;
-
-namespace Application.Order.Commands.Create;
+﻿namespace Application.Order.Commands.Create;
 
 public class CreateOrderCommandHandler : IRequestHandler<CreateOrderCommand, Domain.Entities.Order>
 {

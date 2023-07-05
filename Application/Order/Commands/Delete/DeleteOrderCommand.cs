@@ -1,6 +1,4 @@
-﻿using MediatR;
-
-namespace Application.Order.Commands.Delete;
+﻿namespace Application.Order.Commands.Delete;
 
 public class DeleteOrderCommand : IRequest<bool>
 {

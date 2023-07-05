@@ -1,7 +1,4 @@
-﻿using Domain.Common.Repository;
-using MediatR;
-
-namespace Application.Product.Commands.Delete;
+﻿namespace Application.Product.Commands.Delete;
 
 public class DeleteProductCommandHandler : IRequestHandler<DeleteProductCommand, bool>
 {

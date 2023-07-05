@@ -1,11 +1,10 @@
 ﻿
 using Infrastructure.Persistance;
-using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 namespace Application.Product.Commands.Update;
 
-public class UpdateProductCommandHandler : IRequestHandler<UpdateProductCommand, Unit>
+public class UpdateProductCommandHandler : IRequestHandler<UpdateProductCommand, Unit> //Нужно рефакторить этот треш
 {
     private readonly ApplicationDbContext _dbContext;
 
