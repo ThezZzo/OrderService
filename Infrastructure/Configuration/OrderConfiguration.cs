@@ -8,8 +8,9 @@ public class OrderConfiguration : IEntityTypeConfiguration<Order>
 {
     public void Configure(EntityTypeBuilder<Order> builder)
     {
+        builder.OwnsOne(o => o.OrderItems);
+        builder.OwnsOne(o => o.SumPrice);
+        
 
-
-        builder.OwnsOne(p => p.OrderItems);
     }
 }

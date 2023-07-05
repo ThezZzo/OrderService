@@ -17,7 +17,6 @@ public class OrderRepository :
     public async Task<IEnumerable<Domain.Entities.Order>> GetAllOrders(CancellationToken cancellationToken)
     {
         return await _dbContext.Set<Domain.Entities.Order>()
-            .Include(p => p.OrderItems)
             .ToListAsync(cancellationToken);
     }
 }

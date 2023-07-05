@@ -13,6 +13,13 @@ public class FakeData
     {
         return new Price { Value = value };
     }
-    
-    
+
+    public IList<OrderItem> FakeOrderItems()
+    {
+        return new List<OrderItem>
+        {
+            new OrderItem {Order = .}
+        }
+    }
+
 }

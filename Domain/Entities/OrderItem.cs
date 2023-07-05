@@ -1,10 +1,8 @@
-﻿
-namespace Domain.Entities;
+﻿namespace Domain.Entities;
 
 public class OrderItem
 {
-    public Order Order { get; init; }
-    
+    public int Id { get; set; }
     public Product Product { get; init; }
     
     public Quantity Quantity { get; init; }

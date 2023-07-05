@@ -1,17 +1,12 @@
-﻿using System.ComponentModel;
+﻿namespace Domain.Entities;
 
-namespace Domain.Entities;
-
-[DisplayName]
 public class Order 
 {
     public int Id { get; protected set; }
-    
-    public IList<OrderItem> OrderItems { get; init; } 
-    
+    public List<OrderItem> OrderItems { get; private init; }
     public SumPrice SumPrice { get; init; }
 
-    public static Order Create(IList<OrderItem> orderItems, SumPrice sumPrice)
+    public static Order Create(List<OrderItem> orderItems, SumPrice sumPrice)
     {
         if (!orderItems.Any())
         {
@@ -29,22 +24,14 @@ public class Order
         var orderItem = OrderItem.Create(product, quantity);
         OrderItems.Add(orderItem);
     }
-
+    
     public static long CalculateFinalPrice(IList<OrderItem> orderItems)
     {
         if (!orderItems.Any())
         {
             throw new Exception();
         }
-
-        long price = 0;
-        
-        foreach (var item in orderItems)
-        {
-            price += item.Quantity.Value * item.Product.Price.Value;
-        }
-        
-        return price;
+        return orderItems.Sum(item => item.Quantity.Value * item.Product.Price.Value);
     }
 }
 

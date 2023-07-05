@@ -8,8 +8,7 @@ public class ProductConfiguration : IEntityTypeConfiguration<Product>
 {
     public void Configure(EntityTypeBuilder<Product> builder)
     {
-        builder.Property(p => p.Name)
-            .HasMaxLength(200)
-            .IsRequired();
+        builder.OwnsOne(p => p.Price);
+        
     }
 }

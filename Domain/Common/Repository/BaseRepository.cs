@@ -1,5 +1,4 @@
 ﻿using Domain.Exceptions;
-using Microsoft.EntityFrameworkCore;
 
 namespace Domain.Common.Repository;
 

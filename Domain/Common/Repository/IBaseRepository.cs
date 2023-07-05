@@ -1,6 +1,4 @@
-﻿using MediatR;
-
-namespace Domain.Common.Repository;
+﻿namespace Domain.Common.Repository;
 
 public interface IBaseRepository<TEntity> where TEntity : class
 {

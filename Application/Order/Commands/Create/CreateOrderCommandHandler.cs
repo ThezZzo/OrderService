@@ -18,7 +18,14 @@ public class CreateOrderCommandHandler : IRequestHandler<CreateOrderCommand, Dom
      public async Task<Domain.Entities.Order> Handle(CreateOrderCommand request, CancellationToken cancellationToken)
      {
          var price = Domain.Entities.Order.CalculateFinalPrice(request.OrderItems);
-         var entity = Domain.Entities.Order.Create(request.OrderItems, SumPrice.Create(price));
+         var entity = Domain.Entities.Order.Create(new List<OrderItem>(), SumPrice.Create(price));
+         foreach (var item in request.OrderItems)
+         {
+             entity.AddOrderItem(
+                 Domain.Entities.Product.Create(item.Product.Price, item.Product.Name), 
+                 Quantity.Create(item.Quantity.Value));
+         }
+         
          return await _orderRepository.AddEntityAsync(entity, cancellationToken);
      }
 }
