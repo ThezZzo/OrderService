@@ -1,4 +1,4 @@
-﻿using Domain.Exceptions;
+﻿
 using Infrastructure.Persistance;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -18,7 +18,7 @@ public class UpdateProductCommandHandler : IRequestHandler<UpdateProductCommand,
         var product = _dbContext.Products.FirstOrDefaultAsync(p => p.Id == request.Id, cancellationToken);
         if (product == null || product.Id != request.Id)
         {
-            throw new NotFoundException(nameof(product), request.Id);
+            throw new Exception();
         }
         product.Result.Name = request.Name;
         product.Result.Price = request.Price;

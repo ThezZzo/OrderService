@@ -8,11 +8,11 @@ namespace Application.Order.Commands.Create;
 public class CreateOrderCommandHandler : IRequestHandler<CreateOrderCommand, Domain.Entities.Order>
 {
     private readonly IOrderRepository _orderRepository;
-    private readonly IProductRepository _productRepository;
-    public CreateOrderCommandHandler(IOrderRepository orderRepository, IProductRepository productRepository)
+    private readonly IOrderItemRepository _orderItemRepository;
+    public CreateOrderCommandHandler(IOrderRepository orderRepository, IOrderItemRepository orderItemRepository)
      {
          _orderRepository = orderRepository;
-         _productRepository = productRepository;
+         _orderItemRepository = orderItemRepository;
      }
      
      public async Task<Domain.Entities.Order> Handle(CreateOrderCommand request, CancellationToken cancellationToken)
@@ -25,7 +25,8 @@ public class CreateOrderCommandHandler : IRequestHandler<CreateOrderCommand, Dom
                  Domain.Entities.Product.Create(item.Product.Price, item.Product.Name), 
                  Quantity.Create(item.Quantity.Value));
          }
-         
+
+         await _orderItemRepository.AddListEntityAsync(entity.OrderItems, cancellationToken);
          return await _orderRepository.AddEntityAsync(entity, cancellationToken);
      }
 }

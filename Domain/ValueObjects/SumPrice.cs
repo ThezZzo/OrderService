@@ -2,7 +2,7 @@
 
 public class SumPrice
 {
-    private long Value { get; init; }
+    public long Value { get; init; }
 
     public static SumPrice Create(long value)
     {

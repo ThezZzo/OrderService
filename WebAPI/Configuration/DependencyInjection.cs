@@ -12,6 +12,7 @@ using Domain.Common.DTOs;
 using Domain.Common.Repository;
 using Domain.Entities;
 using Infrastructure.Repositories.Order;
+using Infrastructure.Repositories.OrderItem;
 using Infrastructure.Repositories.Product;
 using MediatR;
 
@@ -36,6 +37,9 @@ public static class DependencyInjection
         // services.AddScoped(typeof(IRequestHandler<UpdateOrderCommand, Unit>), typeof(UpdateOrderCommandHandler));
         services.AddScoped(typeof(IRequestHandler<DeleteOrderCommand, bool>), typeof(DeleteOrderCommandHandler));
         services.AddScoped(typeof(IOrderRepository), typeof(OrderRepository));
+        
+        
+        services.AddScoped(typeof(IOrderItemRepository), typeof(OrderItemRepository));
         
         return services;
     }

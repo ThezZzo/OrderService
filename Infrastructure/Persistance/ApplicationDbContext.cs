@@ -24,7 +24,8 @@ public class ApplicationDbContext : DbContext
     }
     public DbSet<Order> Orders { get; set; }
     public DbSet<Product> Products { get; set; }
-    
+
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         var connectionString = _configuration.GetConnectionString("DefaultConnection");

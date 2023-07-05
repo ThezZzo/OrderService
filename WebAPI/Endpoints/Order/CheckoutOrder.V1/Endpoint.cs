@@ -13,7 +13,7 @@ public static class Endpoint
             {
                 await mediator.Send(new CreateOrderCommand
                 {
-                    
+                    OrderItems = query.OrderItems
                 });
             });
         return app;

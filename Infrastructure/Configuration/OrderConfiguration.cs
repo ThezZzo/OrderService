@@ -11,6 +11,5 @@ public class OrderConfiguration : IEntityTypeConfiguration<Order>
         builder.OwnsOne(o => o.OrderItems);
         builder.OwnsOne(o => o.SumPrice);
         
-
     }
 }

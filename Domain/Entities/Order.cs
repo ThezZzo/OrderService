@@ -3,15 +3,11 @@
 public class Order 
 {
     public int Id { get; protected set; }
-    public List<OrderItem> OrderItems { get; private init; }
+    public List<OrderItem> OrderItems { get;  init; }
     public SumPrice SumPrice { get; init; }
 
     public static Order Create(List<OrderItem> orderItems, SumPrice sumPrice)
     {
-        if (!orderItems.Any())
-        {
-            throw new Exception();
-        }
         return new Order { OrderItems = orderItems, SumPrice = sumPrice };
     }
 
