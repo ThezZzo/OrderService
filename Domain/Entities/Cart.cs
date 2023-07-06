@@ -2,9 +2,9 @@
 
 public class Cart
 {
-    public int Id { get; set; }
+    public Guid Id { get; set; }
     
-    private IList<CartItem> CartItems { get; init; }
+    public IList<CartItem> CartItems { get; init; }
     
     private DateTime DateCreated { get; init; }
     
@@ -12,14 +12,15 @@ public class Cart
 
     private bool CloseCart { get; set; }
 
-    public Cart()
+    private Cart()
     {
+        Id = Guid.NewGuid();
         CloseCart = false;
     }
 
-    public Cart Create(IList<CartItem> cartItems, DateTime dateTime)
+    public static Cart Create(IList<CartItem> cartItems, DateTime dateTime)
     {
-        return new Cart { CartItems = cartItems, DateCreated = dateTime };
+        return new Cart { Id = Guid.NewGuid(),CartItems = cartItems, DateCreated = dateTime };
     }
 
     public void AddCartItem(CartItem cartItem)
@@ -30,6 +31,7 @@ public class Cart
         }
         CartItems.Add(cartItem);
     }
+    
     
     
     public void CloseCartForCheckoutOrder()

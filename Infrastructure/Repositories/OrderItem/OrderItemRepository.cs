@@ -1,7 +1,5 @@
 ﻿using Domain.Common.Repository;
 using Infrastructure.Persistance;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Internal;
 
 namespace Infrastructure.Repositories.OrderItem;
 

@@ -1,6 +1,7 @@
 ﻿namespace Application.Cart.Commands.Create;
 
-public class CreateCartCommands : IRequest<Domain.Entities.Cart>
+public class CreateCartCommand : IRequest<Domain.Entities.Cart>
 {
-    public IList<OrderItem> OrderItems { get; set; }
+    public Guid CartId { get; set; }
+    public Domain.Entities.CartItem CartItem { get; set; }
 }

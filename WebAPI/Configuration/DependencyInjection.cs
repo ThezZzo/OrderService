@@ -8,9 +8,9 @@ using Application.Product.Commands.Create;
 using Application.Product.Commands.Delete;
 using Application.Product.Queries.AllProducts;
 using Application.Product.Queries.GetProduct;
-using Domain.Common.DTOs;
 using Domain.Common.Repository;
 using Domain.Entities;
+using Infrastructure.Repositories.CartItem;
 using Infrastructure.Repositories.Order;
 using Infrastructure.Repositories.OrderItem;
 using Infrastructure.Repositories.Product;
@@ -40,7 +40,7 @@ public static class DependencyInjection
         
         
         services.AddScoped(typeof(IOrderItemRepository), typeof(OrderItemRepository));
-        
+        services.AddScoped(typeof(ICartItemRepository), typeof(CartItemRepository));
         return services;
     }
     public static WebApplication ConfigureMapApi(this WebApplication app)

@@ -3,6 +3,8 @@
 public class Order 
 {
     public int Id { get; protected set; }
+    
+    public Cart Cart { get; init; }
     public List<OrderItem> OrderItems { get;  init; }
     public SumPrice SumPrice { get; init; }
 
