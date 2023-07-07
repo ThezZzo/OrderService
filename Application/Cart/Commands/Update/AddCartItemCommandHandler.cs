@@ -12,7 +12,8 @@ public class AddCartItemCommandHandler : IRequestHandler<AddCartItemCommand, Dom
     public async Task<Domain.Entities.Cart> Handle(AddCartItemCommand request, CancellationToken cancellationToken)
     {
         var cart = await _cartRepository.GetEntityByGuidAsync(request.CartId, cancellationToken);
-        cart.AddCartItem(request.CartItem);
-        return await _cartRepository.UpdateEntityAsync(cart, cancellationToken);
+        cart.AddCartItem(Domain.Entities.CartItem.Create(request.CartItem.Product, Quantity.Create(request.CartItem.Quantity.Value)));
+        await _cartRepository.UpdateEntityAsync(cart, cancellationToken);
+        return cart;
     }
 }

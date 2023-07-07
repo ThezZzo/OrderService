@@ -32,6 +32,10 @@ public class Cart
         CartItems.Add(cartItem);
     }
 
+    public IList<CartItem> GetCartItems(Cart cart)
+    {
+        return CartItems;
+    }
     public bool CartIsClosed()
     {
         return CloseCart;

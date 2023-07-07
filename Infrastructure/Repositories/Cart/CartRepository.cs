@@ -19,11 +19,22 @@ public class CartRepository :
     
     public async Task<Domain.Entities.Cart> GetEntityByGuidAsync(Guid id, CancellationToken cancellationToken)
     {
-        var cart = await _dbSet.FindAsync(id, cancellationToken);
+        var cart = await _dbSet.FirstOrDefaultAsync(p=>p.Id == id, cancellationToken);
         if (cart == null)
         {
             throw new Exception();
         }
         return cart;
+    }
+
+    public async Task<IList<Domain.Entities.CartItem>> GetCartItems(Guid id, CancellationToken cancellationToken)
+    {
+        var cart = await _dbSet.FirstOrDefaultAsync(p=>p.Id == id, cancellationToken);
+        if (cart == null)
+        {
+            throw new Exception();
+        }
+
+        return cart.GetCartItems(cart);
     }
 }
