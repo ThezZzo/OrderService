@@ -1,6 +1,8 @@
 ﻿using System.Net;
 using Application.Product.Queries.AllProducts;
 using Domain.Common.Repository;
+using Domain.Entities;
+using Domain.ValueObjects;
 using Moq;
 
 namespace Domain.Test.Application.Test.Product.Queries;
@@ -32,6 +34,6 @@ public class GetAllProducts
 
     private Entities.Product[] _products =
     {
-        new Entities.Product { Name = "Продукт", Price = 200M }
+        new Entities.Product { Name = "Продукт", Price = Price.Create(200) }
     };
 }

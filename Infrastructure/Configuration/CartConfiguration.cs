@@ -8,6 +8,6 @@ public class CartConfiguration : IEntityTypeConfiguration<Cart>
 {
     public void Configure(EntityTypeBuilder<Cart> builder)
     {
-        builder.OwnsMany(p => p.CartItems);
+        builder.OwnsOne(p => p.CartItems);
     }
 }

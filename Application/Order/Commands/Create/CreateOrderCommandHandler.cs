@@ -3,25 +3,23 @@
 public class CreateOrderCommandHandler : IRequestHandler<CreateOrderCommand, Domain.Entities.Order>
 {
     private readonly IOrderRepository _orderRepository;
-    private readonly IOrderItemRepository _orderItemRepository;
-    public CreateOrderCommandHandler(IOrderRepository orderRepository, IOrderItemRepository orderItemRepository)
+    private readonly ICartRepository _cartRepository;
+    public CreateOrderCommandHandler(IOrderRepository orderRepository, ICartRepository cartRepository)
      {
          _orderRepository = orderRepository;
-         _orderItemRepository = orderItemRepository;
+         _cartRepository = cartRepository;
      }
      
      public async Task<Domain.Entities.Order> Handle(CreateOrderCommand request, CancellationToken cancellationToken)
      {
-         var price = Domain.Entities.Order.CalculateFinalPrice(request.OrderItems);
-         var entity = Domain.Entities.Order.Create(new List<OrderItem>(), SumPrice.Create(price));
-         foreach (var item in request.OrderItems)
+         var cart = await _cartRepository.GetEntityByGuidAsync(request.CartId, cancellationToken);
+         if (cart.CartIsClosed())
          {
-             entity.AddOrderItem(
-                 Domain.Entities.Product.Create(item.Product.Price, item.Product.Name), 
-                 Quantity.Create(item.Quantity.Value));
+             throw new Exception();
          }
-
-         await _orderItemRepository.AddListEntityAsync(entity.OrderItems, cancellationToken);
+         cart.CloseCartForCheckoutOrder();
+         var price = Domain.Entities.Cart.CalculateFinalPrice(cart.CartItems);
+         var entity = Domain.Entities.Order.Create(cart, SumPrice.Create(price));
          return await _orderRepository.AddEntityAsync(entity, cancellationToken);
      }
 }

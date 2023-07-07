@@ -4,13 +4,13 @@ public class Cart
 {
     public Guid Id { get; set; }
     
-    public IList<CartItem> CartItems { get; init; }
+    public List<CartItem> CartItems { get; set; }
     
     private DateTime DateCreated { get; init; }
     
     private DateTime? DateClose { get; set; }
 
-    private bool CloseCart { get; set; }
+    public bool CloseCart { get; set; } = false;
 
     private Cart()
     {
@@ -18,7 +18,7 @@ public class Cart
         CloseCart = false;
     }
 
-    public static Cart Create(IList<CartItem> cartItems, DateTime dateTime)
+    public static Cart Create(List<CartItem> cartItems, DateTime dateTime)
     {
         return new Cart { Id = Guid.NewGuid(),CartItems = cartItems, DateCreated = dateTime };
     }
@@ -31,12 +31,28 @@ public class Cart
         }
         CartItems.Add(cartItem);
     }
-    
-    
+
+    public bool CartIsClosed()
+    {
+        return CloseCart;
+    } 
+    public static long CalculateFinalPrice(IList<CartItem> cartItems)
+    {
+        if (!cartItems.Any())
+        {
+            throw new Exception();
+        }
+        return cartItems.Sum(item => item.Quantity.Value * item.Product.Price.Value);
+    }
     
     public void CloseCartForCheckoutOrder()
     {
         CloseCart = true;
         DateClose = DateTime.UtcNow;
+    }
+
+    public void RemoveCartItem(CartItem cartItem)
+    {
+        CartItems.Remove(cartItem);
     }
 }

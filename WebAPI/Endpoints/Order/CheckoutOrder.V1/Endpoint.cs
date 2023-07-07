@@ -9,11 +9,11 @@ public static class Endpoint
     public static WebApplication MapCreateOrder(this WebApplication app)
     {
         app.MapPost("/api/orders",
-            async ([FromBody]Domain.Entities.Order query, ISender mediator) =>
+            async ([FromBody]Guid cartId, ISender mediator) =>
             {
                 await mediator.Send(new CreateOrderCommand
                 {
-                    OrderItems = query.OrderItems
+                    CartId = cartId
                 });
             });
         return app;

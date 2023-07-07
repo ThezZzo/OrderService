@@ -23,12 +23,7 @@ public class UnitTest1
         
         Assert.Same(product, typeof(Product));
     }
-
-    [Fact]
-    public void CalculateFinalPrice()
-    {
-        var price = Order.CalculateFinalPrice();
-    }
+    
     
     
 }

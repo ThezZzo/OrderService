@@ -1,6 +1,9 @@
 using Infrastructure.Persistance;
 using Microsoft.EntityFrameworkCore;
 using WebAPI.Configuration;
+using WebAPI.Endpoints.Cart.AddCartItem;
+using WebAPI.Endpoints.Cart.CreateCart.V1;
+using WebAPI.Endpoints.Cart.GetCart.V1;
 using WebAPI.Endpoints.Order.CancelOrder.V1;
 using WebAPI.Endpoints.Order.CheckoutOrder.V1;
 using WebAPI.Endpoints.Order.ReturnAllOrders.V1;
@@ -46,6 +49,10 @@ app.MapDeleteProduct();
 app.MapGetAllOrders();
 app.MapCreateOrder();
 app.MapDeleteOrder();
+
+app.MapCreateCart();
+app.MapAddCartItem();
+app.MapGetCart();
 
 app.UseRouting();
 app.UseSwaggerUI();

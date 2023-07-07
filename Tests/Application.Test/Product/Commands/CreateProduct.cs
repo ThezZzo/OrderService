@@ -2,7 +2,9 @@
 using System.Net.Http.Json;
 using Application.Product.Commands.Create;
 using Domain.Common.Repository;
+using Domain.Entities;
 using Domain.Test.Domain.Product.Test;
+using Domain.ValueObjects;
 using Moq;
 
 namespace Domain.Test.Application.Test.Product.Commands;
@@ -21,13 +23,11 @@ public class CreateProduct
     [Fact]
     public async void PostProduct_WithIncorrectData_ShouldBeOk()
     {
-        var fakeProduct = new Entities.Product
-        {
-            Name = "Продукт",
-            Price = 1000
-        };
+        var price = Price.Create(100);
+        var fakeProduct = Entities.Product.Create(price,"Product");
+
         var mock = new Mock<IProductRepository>();
-        mock.Setup(r => r.AddEntityAsync(fakeProduct, It.IsAny<CancellationToken>()).Result);
+        mock.Setup(r => r.AddEntityAsync(fakeProduct, It.IsAny<CancellationToken>()));
         var handler = new CreateProductCommandHandler(mock.Object);
         
         var target = handler.Handle(new CreateProductCommand(), CancellationToken.None).Result;

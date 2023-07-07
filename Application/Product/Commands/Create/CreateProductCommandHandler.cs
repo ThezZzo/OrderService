@@ -11,7 +11,7 @@ public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand,
     }
     public async Task<Domain.Entities.Product> Handle(CreateProductCommand request, CancellationToken cancellationToken)
     {
-        var entity = Domain.Entities.Product.Create(request.Price, request.Name);
+        var entity = Domain.Entities.Product.Create(Price.Create(request.Price), request.Name);
         await _repository.AddEntityAsync(entity, cancellationToken);
         return entity;
     }

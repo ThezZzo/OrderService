@@ -21,7 +21,7 @@ public class BaseRepository<TEntity, TDbContext> : IBaseRepository<TEntity>
         await _dbContext.SaveChangesAsync(cancellationToken);
         return entity;
     }
-
+    
     public async Task<bool> RemoveEntityAsync(TEntity entity, int id, CancellationToken cancellationToken)
     {
         var result = await _dbSet.FindAsync(id);

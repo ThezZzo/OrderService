@@ -1,4 +1,5 @@
 ﻿using Application.Product.Commands.Create;
+using Domain.Common.DTO;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,7 +10,7 @@ public static class Endpoint
     public static WebApplication MapCreateProduct(this WebApplication app)
     {
         app.MapPost("/api/products",
-            async ([FromBody]Domain.Entities.Product query, ISender mediator) =>
+            async ([FromBody]ProductDTO query, ISender mediator) =>
             {
                 await mediator.Send(new CreateProductCommand
                 {

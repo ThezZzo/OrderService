@@ -1,5 +1,5 @@
 ﻿using Application.Cart.Commands.Create;
-using Application.Order.Commands.Delete;
+using Domain.Common.DTO;
 using Domain.Entities;
 using MediatR;
 
@@ -10,7 +10,7 @@ public static class Endpoint
     public static WebApplication MapCreateCart(this WebApplication app)
     {
         app.MapPost("/api/cart",
-            async (Domain.Entities.CartItem cartItem, ISender mediator) =>
+            async (CartItem cartItem, ISender mediator) =>
             {
                 await mediator.Send(new CreateCartCommand
                 {

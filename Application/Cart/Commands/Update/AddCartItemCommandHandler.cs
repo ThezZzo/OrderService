@@ -13,6 +13,6 @@ public class AddCartItemCommandHandler : IRequestHandler<AddCartItemCommand, Dom
     {
         var cart = await _cartRepository.GetEntityByGuidAsync(request.CartId, cancellationToken);
         cart.AddCartItem(request.CartItem);
-        return cart;
+        return await _cartRepository.UpdateEntityAsync(cart, cancellationToken);
     }
 }
