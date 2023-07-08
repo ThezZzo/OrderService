@@ -10,11 +10,12 @@ public static class Endpoint
     public static WebApplication MapCreateCart(this WebApplication app)
     {
         app.MapPost("/api/cart",
-            async (CartItem cartItem, ISender mediator) =>
+            async (CartItemDTO cartItem, ISender mediator) =>
             {
                 await mediator.Send(new CreateCartCommand
                 {
-                    CartItem = cartItem
+                    Product = cartItem.Product,
+                    Quantity = cartItem.Quantity
                 });
             });
         return app;

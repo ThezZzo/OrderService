@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230707002039_initMigrate")]
-    partial class initMigrate
+    [Migration("20230708112026_migrate")]
+    partial class migrate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -47,6 +47,9 @@ namespace Infrastructure.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
+                    b.Property<Guid?>("CartId")
+                        .HasColumnType("uuid");
+
                     b.Property<DateTime>("DateCreated")
                         .HasColumnType("timestamp with time zone");
 
@@ -54,6 +57,8 @@ namespace Infrastructure.Migrations
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CartId");
 
                     b.HasIndex("ProductId");
 
@@ -87,6 +92,7 @@ namespace Infrastructure.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("Id");
@@ -94,30 +100,12 @@ namespace Infrastructure.Migrations
                     b.ToTable("Products");
                 });
 
-            modelBuilder.Entity("Domain.Entities.Cart", b =>
-                {
-                    b.OwnsOne("System.Collections.Generic.List<Domain.Entities.CartItem>", "CartItems", b1 =>
-                        {
-                            b1.Property<Guid>("CartId")
-                                .HasColumnType("uuid");
-
-                            b1.Property<int>("Capacity")
-                                .HasColumnType("integer");
-
-                            b1.HasKey("CartId");
-
-                            b1.ToTable("Cart");
-
-                            b1.WithOwner()
-                                .HasForeignKey("CartId");
-                        });
-
-                    b.Navigation("CartItems")
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("Domain.Entities.CartItem", b =>
                 {
+                    b.HasOne("Domain.Entities.Cart", null)
+                        .WithMany("CartItems")
+                        .HasForeignKey("CartId");
+
                     b.HasOne("Domain.Entities.Product", "Product")
                         .WithMany()
                         .HasForeignKey("ProductId")
@@ -178,7 +166,7 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Domain.Entities.Product", b =>
                 {
-                    b.OwnsOne("Domain.Entities.Price", "Price", b1 =>
+                    b.OwnsOne("Domain.ValueObjects.Price", "Price", b1 =>
                         {
                             b1.Property<int>("ProductId")
                                 .HasColumnType("integer");
@@ -196,6 +184,11 @@ namespace Infrastructure.Migrations
 
                     b.Navigation("Price")
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Domain.Entities.Cart", b =>
+                {
+                    b.Navigation("CartItems");
                 });
 #pragma warning restore 612, 618
         }

@@ -2,7 +2,7 @@
 
 public class Quantity 
 {
-    public long Value { get; private init; }
+    public long Value { get; set; }
 
     public static Quantity Create(long value)
     {

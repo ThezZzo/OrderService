@@ -1,6 +1,6 @@
 ﻿namespace Application.Cart.Queries.GetCart;
 
-public class GetCartCommandHandler : IRequestHandler<GetCartQuery, IList<Domain.Entities.CartItem>>
+public class GetCartCommandHandler : IRequestHandler<GetCartQuery, List<Domain.Entities.Cart>>
 {
     private readonly ICartRepository _cartRepository;
 
@@ -9,7 +9,7 @@ public class GetCartCommandHandler : IRequestHandler<GetCartQuery, IList<Domain.
         _cartRepository = cartRepository;
     }
      
-    public async Task<IList<Domain.Entities.CartItem>> Handle(GetCartQuery request, CancellationToken cancellationToken)
+    public async Task<List<Domain.Entities.Cart>> Handle(GetCartQuery request, CancellationToken cancellationToken)
     {
         return await _cartRepository.GetCartItems(request.CartId, cancellationToken);
     }

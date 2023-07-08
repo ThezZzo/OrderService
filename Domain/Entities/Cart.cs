@@ -25,21 +25,34 @@ public class Cart
 
     public void AddCartItem(CartItem cartItem)
     {
-        if (!CloseCart)
+        if (CloseCart)
         {
             throw new Exception();
         }
         CartItems.Add(cartItem);
     }
 
-    public IList<CartItem> GetCartItems(Cart cart)
+    public IList<CartItem> GetCartItems()
     {
         return CartItems;
+    }
+
+    public CartItem GetCartItem(List<CartItem> cartItems, Product product)
+    {
+        var cartItem = cartItems.Find(p => p.Product == product);
+        if (cartItem == null)
+        {
+            throw new Exception();
+        }
+
+        return cartItem;
     }
     public bool CartIsClosed()
     {
         return CloseCart;
     } 
+    
+    
     public static long CalculateFinalPrice(IList<CartItem> cartItems)
     {
         if (!cartItems.Any())
@@ -59,4 +72,10 @@ public class Cart
     {
         CartItems.Remove(cartItem);
     }
+
+    public Guid GetCartId()
+    {
+        return Id;
+    }
+
 }

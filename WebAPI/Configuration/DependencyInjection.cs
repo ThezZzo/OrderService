@@ -46,7 +46,7 @@ public static class DependencyInjection
         //
         
         //Сущность Cart
-        services.AddScoped(typeof(IRequestHandler<GetCartQuery, IList<CartItem>>), typeof(GetCartCommandHandler));
+        services.AddScoped(typeof(IRequestHandler<GetCartQuery, List<Cart>>), typeof(GetCartCommandHandler));
         services.AddScoped(typeof(IRequestHandler<AddCartItemCommand, Cart>), typeof(AddCartItemCommandHandler));
         services.AddScoped(typeof(IRequestHandler<CreateCartCommand, Cart>), typeof(CreateCartCommandHandler));
         services.AddScoped(typeof(ICartRepository), typeof(CartRepository));
