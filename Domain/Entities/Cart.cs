@@ -37,6 +37,17 @@ public class Cart
         return CartItems;
     }
 
+    public CartItem GetCartItemWithProduct(List<CartItem> cartItems, Product product)
+    {
+        var cartItem = cartItems.Find(p => p.Product == product);
+        if (cartItem == null)
+        {
+            throw new Exception();
+        }
+
+        return cartItem;
+    }
+    
     public CartItem GetCartItem(List<CartItem> cartItems, Product product)
     {
         var cartItem = cartItems.Find(p => p.Product == product);
@@ -47,6 +58,9 @@ public class Cart
 
         return cartItem;
     }
+    
+
+    
     public bool CartIsClosed()
     {
         return CloseCart;

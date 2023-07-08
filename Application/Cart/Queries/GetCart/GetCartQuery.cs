@@ -1,6 +1,8 @@
-﻿namespace Application.Cart.Queries.GetCart;
+﻿using Domain.Common.DTO;
 
-public class GetCartQuery : IRequest<List<Domain.Entities.Cart>>
+namespace Application.Cart.Queries.GetCart;
+
+public class GetCartQuery : IRequest<IEnumerable<CartItemDTO>>
 {
     public Guid CartId { get; set; }
 }

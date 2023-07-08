@@ -1,6 +1,4 @@
-﻿using Domain.Common.DTO;
-
-namespace Application.Cart.Commands.AddCartItem;
+﻿namespace Application.Cart.Commands.Update;
 
 public class AddCartItemCommandHandler : IRequestHandler<AddCartItemCommand, Domain.Entities.Cart>
 {

@@ -1,6 +1,8 @@
-﻿namespace Application.Cart.Queries.GetCart;
+﻿using Domain.Common.DTO;
 
-public class GetCartCommandHandler : IRequestHandler<GetCartQuery, List<Domain.Entities.Cart>>
+namespace Application.Cart.Queries.GetCart;
+
+public class GetCartCommandHandler : IRequestHandler<GetCartQuery, IEnumerable<CartItemDTO>>
 {
     private readonly ICartRepository _cartRepository;
 
@@ -9,7 +11,7 @@ public class GetCartCommandHandler : IRequestHandler<GetCartQuery, List<Domain.E
         _cartRepository = cartRepository;
     }
      
-    public async Task<List<Domain.Entities.Cart>> Handle(GetCartQuery request, CancellationToken cancellationToken)
+    public async Task<IEnumerable<CartItemDTO>> Handle(GetCartQuery request, CancellationToken cancellationToken)
     {
         return await _cartRepository.GetCartItems(request.CartId, cancellationToken);
     }

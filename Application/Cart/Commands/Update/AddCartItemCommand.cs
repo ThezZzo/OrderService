@@ -1,4 +1,4 @@
-﻿namespace Application.Cart.Commands.AddCartItem;
+﻿namespace Application.Cart.Commands.Update;
 
 public class AddCartItemCommand : IRequest<Domain.Entities.Cart>
 {

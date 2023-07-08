@@ -5,16 +5,14 @@ namespace WebAPI.Endpoints.Cart.GetCart.V1;
 
 public static class Endpoint
 {
+    
     public static WebApplication MapGetCart(this WebApplication app)
     {
-        app.MapGet("/api/cart/{id}",
-            async (string id, ISender mediator) =>
+        app.MapGet("/api/cart/{id}", async (Guid id, ISender mediator) => 
+            await mediator.Send(new GetCartQuery
             {
-                await mediator.Send(new GetCartQuery
-                {
-                    CartId = Guid.Parse(id)
-                });
-            });
+                CartId = id
+            }));
         return app;
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Domain.Common.DTO;
 using Domain.Common.Repository;
+using Domain.ValueObjects;
 using Infrastructure.Persistance;
 using Microsoft.EntityFrameworkCore;
 
@@ -11,12 +12,12 @@ public class CartRepository :
 {
     private readonly DbContext _dbContext;
     private readonly DbSet<Domain.Entities.Cart> _dbCartSet;
-
+    private readonly DbSet<Domain.Entities.CartItem> _dbCartItemSet;
     public CartRepository(ApplicationDbContext dbContext) : base(dbContext)
     {
         _dbContext = dbContext;
         _dbCartSet = _dbContext.Set<Domain.Entities.Cart>();
-
+        _dbCartItemSet = _dbContext.Set<Domain.Entities.CartItem>();
     }
     
     public async Task<Domain.Entities.Cart> GetEntityByGuidAsync(Guid id, CancellationToken cancellationToken)
@@ -29,15 +30,16 @@ public class CartRepository :
         return cart;
     }
 
-    public async Task<List<Domain.Entities.Cart>> GetCartItems(Guid id, CancellationToken cancellationToken)
+    public async Task<IEnumerable<CartItemDTO>> GetCartItems(Guid id, CancellationToken cancellationToken)
     {
-        var cartItems = await _dbCartSet.Where(p => p.Id == id).Include(p => p.CartItems)
+        var cart = await _dbCartItemSet.Where(p=>p.CartId == id)
+            .Include(p=>p.Product)
+            .Select(p=> new CartItemDTO
+            {
+                Product = p.Product,
+                Quantity = p.Quantity.Value
+            })
             .ToListAsync(cancellationToken);
-        if (cartItems == null)
-        {
-            throw new Exception();
-        }
-        
-        return cartItems;
+        return cart;
     }
 }
