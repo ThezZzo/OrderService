@@ -1,8 +1,8 @@
 ﻿namespace Application.Product.Commands.Update;
 
-public class UpdateProductCommand : IRequest, IRequest<Unit>
+public class UpdateProductCommand : IRequest<Domain.Entities.Product>
 {
-    public int Id { get; set; }
-    public string Name { get; set; }
-    public Price Price { get; set; }
+    public int ProductId { get; set; }
+    public string Name { get; init; }
+    public long Price { get; init; }
 }

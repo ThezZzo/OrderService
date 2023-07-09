@@ -37,6 +37,7 @@ public class BaseRepository<TEntity, TDbContext> : IBaseRepository<TEntity>
     {
         _dbSet.Attach(entity);
         _dbContext.Entry(entity).State = EntityState.Modified;
+        await _dbContext.SaveChangesAsync(cancellationToken);
         return entity;
     }
 

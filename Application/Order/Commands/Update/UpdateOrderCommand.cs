@@ -1,9 +1,9 @@
 ﻿
 namespace Application.Order.Commands.Update;
 
-public class UpdateOrderCommand : IRequest<Unit>
+public class UpdateOrderCommand : IRequest<Domain.Entities.Product>
 {
-    public int Count { get; set; }
+    public long Price { get; set; }
     public int ProductId { get; set; }
-    public int Id { get; set; }
+    public string Name { get; set; }
 }

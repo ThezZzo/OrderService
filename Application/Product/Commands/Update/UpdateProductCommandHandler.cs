@@ -1,27 +1,24 @@
-﻿
-using Infrastructure.Persistance;
-using Microsoft.EntityFrameworkCore;
+﻿namespace Application.Product.Commands.Update;
 
-namespace Application.Product.Commands.Update;
-
-public class UpdateProductCommandHandler : IRequestHandler<UpdateProductCommand, Unit> //Нужно рефакторить этот треш
+public class UpdateProductCommandHandler : IRequestHandler<UpdateProductCommand, Domain.Entities.Product>
 {
-    private readonly ApplicationDbContext _dbContext;
+    private readonly IProductRepository _productRepository;
 
-    public UpdateProductCommandHandler(ApplicationDbContext dbContext)
+    public UpdateProductCommandHandler(IProductRepository productRepository)
     {
-        _dbContext = dbContext;
+        _productRepository = productRepository;
     }
-    public async Task<Unit> Handle(UpdateProductCommand request, CancellationToken cancellationToken)
+    public async Task<Domain.Entities.Product> Handle(UpdateProductCommand request, CancellationToken cancellationToken)
     {
-        var product = _dbContext.Products.FirstOrDefaultAsync(p => p.Id == request.Id, cancellationToken);
-        if (product == null || product.Id != request.Id)
+        var entityForUpdate = await _productRepository.GetEntityByIdAsync(request.ProductId, cancellationToken);
+        
+        if (entityForUpdate == null)
         {
             throw new Exception();
         }
-        product.Result.Name = request.Name;
-        product.Result.Price = request.Price;
-        await _dbContext.SaveChangesAsync(cancellationToken);
-        return Unit.Value;
+
+        entityForUpdate.Name = request.Name;
+        entityForUpdate.Price = Price.Create(request.Price);
+        return await _productRepository.UpdateEntityAsync(entityForUpdate, cancellationToken);
     }
 }

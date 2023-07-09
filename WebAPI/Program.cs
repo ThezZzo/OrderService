@@ -13,6 +13,7 @@ using WebAPI.Endpoints.Product.AddProduct.V1;
 using WebAPI.Endpoints.Product.DeleteProduct.V1;
 using WebAPI.Endpoints.Product.GetAllProducts.V1;
 using WebAPI.Endpoints.Product.GetProductById.V1;
+using WebAPI.Endpoints.Product.UpdateProductById.V1;
 
 
 var builder = WebApplication
@@ -47,6 +48,7 @@ app.MapGetAllProduct();
 app.MapGetProductById();
 app.MapCreateProduct();
 app.MapDeleteProduct();
+app.MapUpdateProduct();
 
 app.MapGetAllOrders();
 app.MapCreateOrder();

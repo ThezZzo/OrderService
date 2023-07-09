@@ -25,7 +25,6 @@
 
     <ItemGroup>
       <Folder Include="Endpoints\Order\Update" />
-      <Folder Include="Endpoints\Product\UpdateProductById.V1" />
     </ItemGroup>
 
 </Project>

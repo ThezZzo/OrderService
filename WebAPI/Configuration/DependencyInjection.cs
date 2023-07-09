@@ -10,6 +10,7 @@ using Application.Order.Commands.Update;
 using Application.Order.Queries.GetAllOrders;
 using Application.Product.Commands.Create;
 using Application.Product.Commands.Delete;
+using Application.Product.Commands.Update;
 using Application.Product.Queries.AllProducts;
 using Application.Product.Queries.GetProduct;
 using Domain.Common.DTO;
@@ -36,13 +37,15 @@ public static class DependencyInjection
         services.AddScoped(typeof(IRequestHandler<GetProductQuery, Product>), typeof(GetProductQueryHandler));
         services.AddScoped(typeof(IRequestHandler<CreateProductCommand, Product>), typeof(CreateProductCommandHandler));
         services.AddScoped(typeof(IRequestHandler<DeleteProductCommand, bool>), typeof(DeleteProductCommandHandler));
+        services.AddScoped(typeof(IRequestHandler<UpdateProductCommand, Product>), typeof(UpdateProductCommandHandler));
+        
         services.AddScoped(typeof(IProductRepository), typeof(ProductRepository));
         //
         
         //Сущность Order
         services.AddScoped(typeof(IRequestHandler<GetAllOrdersQuery, IEnumerable<Order>>), typeof(GetAllOrdersQueryHandler));
         services.AddScoped(typeof(IRequestHandler<CreateOrderCommand, Order>), typeof(CreateOrderCommandHandler));
-        // services.AddScoped(typeof(IRequestHandler<UpdateOrderCommand, Unit>), typeof(UpdateOrderCommandHandler));
+        // services.AddScoped(typeof(IRequestHandler<UpdateOrderCommand, Product>), typeof(UpdateOrderCommandHandler));
         services.AddScoped(typeof(IRequestHandler<DeleteOrderCommand, bool>), typeof(DeleteOrderCommandHandler));
         services.AddScoped(typeof(IOrderRepository), typeof(OrderRepository));
         //

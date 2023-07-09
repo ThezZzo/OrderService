@@ -42,16 +42,5 @@ public class CartRepository :
             .ToListAsync(cancellationToken);
         return cart;
     }
-    
-    public async Task<List<Domain.Entities.CartItem>> DeleteProductFromCart(Guid guid,int id, CancellationToken cancellationToken)
-    {
-        var cart = await GetEntityByGuidAsync(guid, cancellationToken);
-        if (!cart.CartItems.Any() || cart == null)
-        {
-            throw new Exception();
-        }
-        cart.CartItems.RemoveAll(p => p.Product.Id == id);
-        await _dbContext.SaveChangesAsync(cancellationToken);
-        return cart.CartItems;
-    }
+
 }
