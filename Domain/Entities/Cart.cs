@@ -1,4 +1,6 @@
-﻿namespace Domain.Entities;
+﻿using Domain.Common.DTO;
+
+namespace Domain.Entities;
 
 public class Cart
 {
@@ -23,13 +25,13 @@ public class Cart
         return new Cart { Id = Guid.NewGuid(),CartItems = cartItems, DateCreated = dateTime };
     }
 
-    public void AddCartItem(CartItem cartItem)
+    public void AddCartItem(Product product, Quantity quantity)
     {
         if (CloseCart)
         {
             throw new Exception();
         }
-        CartItems.Add(cartItem);
+        CartItems.Add(CartItem.Create(product, quantity));
     }
 
     public IList<CartItem> GetCartItems()
@@ -46,6 +48,12 @@ public class Cart
         }
 
         return cartItem;
+    }
+
+    public void RemoveProductFromCart(int id)
+    {
+        var product = CartItems.Where(p => p.Product.Id == id).GetEnumerator().Current;
+        CartItems.Remove(product);
     }
     
     public CartItem GetCartItem(List<CartItem> cartItems, Product product)
@@ -67,13 +75,20 @@ public class Cart
     } 
     
     
-    public static long CalculateFinalPrice(IList<CartItem> cartItems)
+    public static long CalculateFinalPrice(IEnumerable<CartItemDTO> cartItems)
     {
-        if (!cartItems.Any())
+        if (cartItems == null)
         {
             throw new Exception();
         }
-        return cartItems.Sum(item => item.Quantity.Value * item.Product.Price.Value);
+
+        var sum = 0L;
+        
+        foreach (var item in cartItems)
+        {
+            sum += item.Product.Price.Value * item.Quantity;
+        }
+        return sum;
     }
     
     public void CloseCartForCheckoutOrder()

@@ -7,7 +7,7 @@ public static class Endpoint
 {
     public static WebApplication MapDeleteProduct(this WebApplication app)
     {
-        app.MapPut("/api/products/{id}",
+        app.MapDelete("/api/products/{id}",
             async (int id, ISender mediator) =>
             {
                 await mediator.Send(new DeleteProductCommand()

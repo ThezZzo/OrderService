@@ -2,6 +2,6 @@
 
 public class CreateOrderCommand : IRequest<Domain.Entities.Order>
 {
-    public Guid CartId { get; set; }
+    public string CartId { get; set; }
 
 }

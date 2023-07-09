@@ -22,7 +22,7 @@ public class CreateCartItemCommandHandler : IRequestHandler<CreateCartItemComman
         var product = _productRepository.GetEntityByIdAsync(request.productId,cancellationToken).Result;
         var cart = _cartRepository.GetEntityByIdAsync(request.CartId, cancellationToken).Result;
         var cartItem = Domain.Entities.CartItem.Create(product, Quantity.Create(request.Quantity));
-        cart.AddCartItem(cartItem);
+        cart.AddCartItem(product, Quantity.Create(request.Quantity));
         return await _cartItemRepository.AddEntityAsync(cartItem, cancellationToken);
     }
 }

@@ -12,13 +12,14 @@ public class CreateOrderCommandHandler : IRequestHandler<CreateOrderCommand, Dom
      
      public async Task<Domain.Entities.Order> Handle(CreateOrderCommand request, CancellationToken cancellationToken)
      {
-         var cart = await _cartRepository.GetEntityByGuidAsync(request.CartId, cancellationToken);
+         var cart = await _cartRepository.GetEntityByGuidAsync(Guid.Parse(request.CartId), cancellationToken);
          if (cart.CartIsClosed())
          {
              throw new Exception();
          }
          cart.CloseCartForCheckoutOrder();
-         var price = Domain.Entities.Cart.CalculateFinalPrice(cart.CartItems);
+         var cartItems = _cartRepository.GetCartItems(Guid.Parse(request.CartId), cancellationToken);
+         var price = Domain.Entities.Cart.CalculateFinalPrice(await cartItems);
          var entity = Domain.Entities.Order.Create(cart, SumPrice.Create(price));
          return await _orderRepository.AddEntityAsync(entity, cancellationToken);
      }

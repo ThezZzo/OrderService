@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using System.Net.NetworkInformation;
 using Application.Cart.Commands.Create;
+using Application.Cart.Commands.Delete;
 using Application.Cart.Commands.Update;
 using Application.Cart.Queries.GetCart;
 using Application.Order.Commands.Create;
@@ -50,6 +51,7 @@ public static class DependencyInjection
         services.AddScoped(typeof(IRequestHandler<GetCartQuery, IEnumerable<CartItemDTO>>), typeof(GetCartCommandHandler));
         services.AddScoped(typeof(IRequestHandler<AddCartItemCommand, Cart>), typeof(AddCartItemCommandHandler));
         services.AddScoped(typeof(IRequestHandler<CreateCartCommand, Cart>), typeof(CreateCartCommandHandler));
+        services.AddScoped(typeof(IRequestHandler<DeleteCartItemCommand, bool>), typeof(DeleteCartItemCommandHandler));
         services.AddScoped(typeof(ICartRepository), typeof(CartRepository));
         
         services.AddScoped(typeof(ICartItemRepository), typeof(CartItemRepository));

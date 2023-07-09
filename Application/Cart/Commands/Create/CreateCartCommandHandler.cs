@@ -21,13 +21,13 @@ public class CreateCartCommandHandler : IRequestHandler<CreateCartCommand, Domai
         var product = await _productRepository.GetEntityByIdAsync(request.Product.Id, cancellationToken);
         var newCartItem = Domain.Entities.CartItem.Create(product, quantity);
         var newCart = Domain.Entities.Cart.Create(
-            new List<Domain.Entities.CartItem>()
+            new List<Domain.Entities.CartItem>
             {
                 newCartItem
             }, 
             DateTime.UtcNow);
         
-        await _cartItemRepository.AddEntityAsync(newCartItem, cancellationToken);
+        
         return await _cartRepository.AddEntityAsync(newCart, cancellationToken);
     }
 }

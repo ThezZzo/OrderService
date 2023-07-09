@@ -22,7 +22,7 @@ public class CartRepository :
     
     public async Task<Domain.Entities.Cart> GetEntityByGuidAsync(Guid id, CancellationToken cancellationToken)
     {
-        var cart = await _dbCartSet.FirstOrDefaultAsync(p=>p.Id == id, cancellationToken);
+        var cart = await _dbCartSet.Include(p=>p.CartItems).FirstOrDefaultAsync(p => p.Id.Equals(id), cancellationToken);
         if (cart == null)
         {
             throw new Exception();
@@ -41,5 +41,17 @@ public class CartRepository :
             })
             .ToListAsync(cancellationToken);
         return cart;
+    }
+    
+    public async Task<List<Domain.Entities.CartItem>> DeleteProductFromCart(Guid guid,int id, CancellationToken cancellationToken)
+    {
+        var cart = await GetEntityByGuidAsync(guid, cancellationToken);
+        if (!cart.CartItems.Any() || cart == null)
+        {
+            throw new Exception();
+        }
+        cart.CartItems.RemoveAll(p => p.Product.Id == id);
+        await _dbContext.SaveChangesAsync(cancellationToken);
+        return cart.CartItems;
     }
 }

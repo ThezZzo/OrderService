@@ -1,4 +1,8 @@
-﻿namespace Application.Cart.Commands.Update;
+﻿using System.Data.Common;
+using Infrastructure.Configuration;
+using Infrastructure.Persistance;
+
+namespace Application.Cart.Commands.Update;
 
 public class AddCartItemCommandHandler : IRequestHandler<AddCartItemCommand, Domain.Entities.Cart>
 {
@@ -14,17 +18,28 @@ public class AddCartItemCommandHandler : IRequestHandler<AddCartItemCommand, Dom
      
     public async Task<Domain.Entities.Cart> Handle(AddCartItemCommand request, CancellationToken cancellationToken)
     {
-        var cart = _cartRepository.GetEntityByGuidAsync(request.CartId, cancellationToken).Result;
+        Guid guid = Guid.Parse(request.CartId);
+        
+        var cart = _cartRepository.GetEntityByGuidAsync(guid, cancellationToken).Result;
+        if (cart.CloseCart == true)
+        {
+            throw new Exception();
+        }
         var product = await _productRepository.GetEntityByIdAsync(request.Product.Id, cancellationToken);
         var quantity = Quantity.Create(request.Quantity);
+        var cartItems = _cartItemRepository.GetCartItemsFromCart(guid, request.Product.Id, cancellationToken).Result;
+        foreach (var item in cartItems.Where(i=>i.Product.Id == request.Product.Id))
+        {
+            var cartItem = item;
+            cartItem.Quantity = Quantity.Create(request.Quantity + item.Quantity.Value);
+            await _cartItemRepository.UpdateEntityAsync(cartItem, cancellationToken);
+            return cart;
+        }
+
+
         var newCartItem = Domain.Entities.CartItem.Create(product, quantity);
-        // if (cart.CartItems.Find(x=>x.Product.Id == newCartItem.Product.Id) != null);
-        // {
-        //     var cartItem = cart.GetCartItem(cart.CartItems, product);
-        //     cartItem.UpdateQuantity(cartItem, quantity);
-        //     return await _cartRepository.UpdateEntityAsync(cart, cancellationToken);
-        // } 
-        cart.AddCartItem(newCartItem);
+        
+        cart.CartItems.Add(newCartItem);
         await _cartItemRepository.AddEntityAsync(newCartItem, cancellationToken);
         return cart;
     }

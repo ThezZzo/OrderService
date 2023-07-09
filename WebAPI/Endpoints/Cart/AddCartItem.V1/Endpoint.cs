@@ -1,16 +1,15 @@
-﻿using Application.Cart.Commands.Create;
-using Application.Cart.Commands.Update;
+﻿using Application.Cart.Commands.Update;
 using Domain.Common.DTO;
 using MediatR;
 
-namespace WebAPI.Endpoints.Cart.AddCartItem;
+namespace WebAPI.Endpoints.Cart.AddCartItem.V1;
 
 public static class Endpoint
 {
     public static WebApplication MapAddCartItem(this WebApplication app)
     {
-        app.MapPatch("/api/cart",
-            async (CartItemDTO cartItem, Guid id,ISender mediator) =>
+        app.MapPost("/api/cart/{id}",
+            async (CartItemDTO cartItem, string id,ISender mediator) =>
             {
                 await mediator.Send(new AddCartItemCommand
                 {
