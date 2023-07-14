@@ -25,18 +25,27 @@ public class AddCartItemCommandHandler : IRequestHandler<AddCartItemCommand, Dom
         {
             throw new Exception();
         }
-        var product = await _productRepository.GetEntityByIdAsync(request.Product.Id, cancellationToken);
-        var quantity = Quantity.Create(request.Quantity);
-        var cartItems = _cartItemRepository.GetCartItemsFromCart(guid, request.Product.Id, cancellationToken).Result;
-        foreach (var item in cartItems.Where(i=>i.Product.Id == request.Product.Id))
+
+        var cartItems = await _cartRepository.GetCartItems(guid, cancellationToken);
+        if (cart.CartItems.Find(p => p.Product.Id == request.Product.Id) != null)
         {
-            var cartItem = item;
-            cartItem.Quantity = Quantity.Create(request.Quantity + item.Quantity.Value);
-            await _cartItemRepository.UpdateEntityAsync(cartItem, cancellationToken);
-            return cart;
+            
         }
 
-
+        foreach (var item in cartItems)
+        {
+            if (item.Product.Id == request.Product.Id)
+            {
+                
+                await _cartItemRepository.UpdateQuantityCartItem(new Domain.Entities.CartItem
+                {
+                    Quantity = Quantity.Create(item.Quantity + request.Quantity)
+                }, cancellationToken);
+                return cart;
+            }
+        }
+        var product = await _productRepository.GetEntityByIdAsync(request.Product.Id, cancellationToken);
+        var quantity = Quantity.Create(request.Quantity);
         var newCartItem = Domain.Entities.CartItem.Create(product, quantity);
         
         cart.CartItems.Add(newCartItem);
